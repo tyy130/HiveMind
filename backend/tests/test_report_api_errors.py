@@ -54,7 +54,7 @@ def test_failed_report_artifacts_do_not_expose_provider_exception(tmp_path, monk
     report = agent.generate_report(report_id="report_safe_failure")
 
     assert report.status == ReportStatus.FAILED
-    assert report.error == "未知错误"
+    assert report.error == "Unknown error"
 
     report_artifacts = [
         path.read_text(encoding="utf-8")

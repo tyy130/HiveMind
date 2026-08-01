@@ -49,62 +49,62 @@ class SourceEpisode:
 BASELINE_EPISODES = [
     SourceEpisode(
         "2026-01-05T09:00:00Z",
-        "澜舟科技（企业稳定标识 LZ-TECH）是一家风电智能运维公司。"
-        "公司总部位于星港市，周岚自 2024 年起担任首席执行官（CEO）。",
+        "Lanzhou Technology(Enterprise stability logo LZ-TECH)Is a wind power intelligent operation and maintenance company."
+        "The company is headquartered in Xinggang City,Zhou Lanzi 2024 Chief Executive Officer since(CEO).",
         "baseline",
     ),
     SourceEpisode(
         "2026-01-12T10:00:00Z",
-        "澜舟科技研发了产品智巡平台（产品稳定标识 ZHIXUN-01）。"
-        "智巡平台当前处于试点阶段，用于识别风机叶片异常。",
+        "Lanzhou Technology developed a product intelligent patrol platform(Product stability mark ZHIXUN-01)."
+        "The smart patrol platform is currently in the pilot stage,Used to identify abnormalities in wind turbine blades.",
         "baseline",
     ),
     SourceEpisode(
         "2026-01-20T14:00:00Z",
-        "澜舟科技与海岳能源（企业稳定标识 HY-ENERGY）签署 HY-2026-01 合作协议。"
-        "双方将在东湾风场联合部署智巡平台，协议有效期至 2026 年 12 月 31 日。",
+        "Lanzhou Technology and Haiyue Energy(Enterprise stability logo HY-ENERGY)sign HY-2026-01 cooperation agreement."
+        "The two parties will jointly deploy an intelligent patrol platform at the East Bay Wind Farm,The agreement is valid until 2026 year 12 month 31 day.",
         "baseline",
     ),
     SourceEpisode(
         "2026-02-02T09:30:00Z",
-        "陈屿担任澜舟科技智巡平台的项目负责人，负责东湾风场部署。"
-        "公司经营仍由首席执行官周岚负责。",
+        "Chen Yu serves as the project leader of Lanzhou Technology Intelligent Patrol Platform,Responsible for the deployment of East Bay wind farm."
+        "The company s operations are still in charge of CEO Zhou Lan.",
         "baseline",
     ),
     SourceEpisode(
         "2026-02-20T18:00:00Z",
-        "东湾风场的智巡平台试点发现了 12 处叶片异常，"
-        "使海岳能源的非计划停机时间降低了 18%。",
+        "The smart patrol platform pilot of Dongwan Wind Farm discovered 12 Abnormalities in leaves,"
+        "Reduced Haiyue Energy s unplanned downtime 18%.",
         "baseline",
     ),
     SourceEpisode(
         "2026-03-05T11:00:00Z",
-        "海岳能源确认澜舟科技是智巡平台的开发方，陈屿是实施项目负责人。"
-        "海岳能源计划在试点验收后成为首批商业客户。",
+        "Haiyue Energy confirms that Lanzhou Technology is the developer of the smart patrol platform,Chen Yu is the person in charge of the implementation project."
+        "Haiyue Energy plans to become the first batch of commercial customers after pilot acceptance.",
         "baseline",
     ),
     SourceEpisode(
         "2026-03-15T16:00:00Z",
-        "澜舟科技董事会批准智巡平台在 2026 年 4 月 1 日从试点阶段转为商业发布。"
-        "周岚以首席执行官身份签署了发布决议。",
+        "The board of directors of Lanzhou Technology approved the intelligent patrol platform 2026 year 4 month 1 Move from pilot phase to commercial release."
+        "Zhou Lan signed the release resolution as CEO.",
         "baseline",
     ),
     SourceEpisode(
         "2026-04-01T08:00:00Z",
-        "智巡平台今天正式商业发布，不再处于试点阶段。"
-        "海岳能源成为智巡平台首个商业客户，陈屿继续负责交付。",
+        "The smart patrol platform is officially commercially released today,No longer in pilot phase."
+        "Haiyue Energy becomes the first commercial customer of the smart patrol platform,Chen Yu continues to be responsible for delivery.",
         "baseline",
     ),
     SourceEpisode(
         "2026-04-18T13:00:00Z",
-        "澜舟科技在星港市总部公布运营数据：智巡平台已覆盖 60 台风机，"
-        "海岳能源仍是 HY-2026-01 协议下的合作伙伴和客户。",
+        "Lanzhou Technology announced operating data at its Xingang City headquarters:The smart patrol platform has been covered 60 Typhoon machine,"
+        "Haiyue Energy is still HY-2026-01 Partners and customers under the agreement.",
         "baseline",
     ),
     SourceEpisode(
         "2026-04-30T17:00:00Z",
-        "截至 2026 年 4 月 30 日，周岚仍担任澜舟科技首席执行官，"
-        "澜舟科技总部仍在星港市；陈屿担任智巡平台项目负责人。",
+        "As of 2026 year 4 month 30 day,Zhou Lan remains as CEO of Lanzhou Technology,"
+        "The headquarters of Lanzhou Technology is still in Xingang City;Chen Yu serves as the project leader of the smart patrol platform.",
         "baseline",
     ),
 ]
@@ -113,20 +113,20 @@ BASELINE_EPISODES = [
 TEMPORAL_UPDATES = [
     SourceEpisode(
         "2026-05-10T09:00:00Z",
-        "澜舟科技董事会宣布，自 2026 年 5 月 10 日起，周岚不再担任首席执行官。"
-        "陈屿正式接任澜舟科技首席执行官，周岚转任首席战略顾问。",
+        "The Board of Directors of Lanzhou Technology announced,since 2026 year 5 month 10 From,Zhou Lan no longer serves as CEO."
+        "Chen Yu officially takes over as CEO of Lanzhou Technology,Zhou Lan transferred to chief strategic advisor.",
         "leadership_change",
     ),
     SourceEpisode(
         "2026-06-01T09:00:00Z",
-        "自 2026 年 6 月 1 日起，澜舟科技总部已从星港市迁至海城市。"
-        "星港市原总部不再是公司总部，现改为澜舟科技研发中心。",
+        "since 2026 year 6 month 1 From,The headquarters of Lanzhou Technology has been moved from Xinggang City to Haicheng City."
+        "The original headquarters in Xingang City is no longer the company headquarters,Now changed to Lanzhou Technology R D Center.",
         "headquarters_change",
     ),
     SourceEpisode(
         "2026-06-15T12:00:00Z",
-        "澜舟科技与海岳能源已于 2026 年 6 月 15 日提前终止 HY-2026-01 联合部署协议。"
-        "海岳能源不再是澜舟科技的联合部署合作伙伴，但仍是智巡平台客户。",
+        "Lanzhou Technology and Haiyue Energy have 2026 year 6 month 15 early termination date HY-2026-01 joint deployment agreement."
+        "Haiyue Energy is no longer Lanzhou Technology s joint deployment partner,But still a customer of the smart patrol platform.",
         "partnership_change",
     ),
     SourceEpisode(
@@ -136,10 +136,10 @@ TEMPORAL_UPDATES = [
                 "event": "product_metrics_update",
                 "company_id": "LZ-TECH",
                 "product_id": "ZHIXUN-01",
-                "product_name": "智巡平台",
+                "product_name": "Intelligent patrol platform",
                 "commercial_status": "commercial",
                 "covered_turbines": 120,
-                "active_customer": "海岳能源",
+                "active_customer": "Haiyue Energy",
                 "as_of": "2026-06-20",
             },
             ensure_ascii=False,
@@ -408,21 +408,21 @@ def _activities() -> Iterable[AgentActivity]:
         AgentActivity(
             platform="twitter",
             agent_id=101,
-            agent_name="陈屿",
+            agent_name="Chenyu",
             action_type="CREATE_POST",
-            action_args={"content": "海城市新总部今天启用，智巡平台商业服务正常运行。"},
+            action_args={"content": "Haicheng City s new headquarters opens today,Smart patrol platform commercial services are operating normally."},
             round_num=1,
             timestamp="2026-07-01T09:00:00Z",
         ),
         AgentActivity(
             platform="twitter",
             agent_id=102,
-            agent_name="周岚",
+            agent_name="Zhou Lan",
             action_type="QUOTE_POST",
             action_args={
-                "original_author_name": "陈屿",
-                "original_content": "海城市新总部今天启用，智巡平台商业服务正常运行。",
-                "quote_content": "作为首席战略顾问，我支持陈屿和新的管理团队。",
+                "original_author_name": "Chenyu",
+                "original_content": "Haicheng City s new headquarters opens today,Smart patrol platform commercial services are operating normally.",
+                "quote_content": "As chief strategic advisor,I support Chen Yu and the new management team.",
             },
             round_num=1,
             timestamp="2026-07-01T09:05:00Z",
@@ -430,11 +430,11 @@ def _activities() -> Iterable[AgentActivity]:
         AgentActivity(
             platform="twitter",
             agent_id=201,
-            agent_name="海岳能源",
+            agent_name="Haiyue Energy",
             action_type="LIKE_POST",
             action_args={
-                "post_author_name": "陈屿",
-                "post_content": "海城市新总部今天启用，智巡平台商业服务正常运行。",
+                "post_author_name": "Chenyu",
+                "post_content": "Haicheng City s new headquarters opens today,Smart patrol platform commercial services are operating normally.",
             },
             round_num=1,
             timestamp="2026-07-01T09:06:00Z",
@@ -442,12 +442,12 @@ def _activities() -> Iterable[AgentActivity]:
         AgentActivity(
             platform="twitter",
             agent_id=201,
-            agent_name="海岳能源",
+            agent_name="Haiyue Energy",
             action_type="CREATE_COMMENT",
             action_args={
-                "post_author_name": "陈屿",
-                "post_content": "海城市新总部今天启用，智巡平台商业服务正常运行。",
-                "content": "联合部署协议虽已终止，但我们仍是智巡平台客户。",
+                "post_author_name": "Chenyu",
+                "post_content": "Haicheng City s new headquarters opens today,Smart patrol platform commercial services are operating normally.",
+                "content": "Although the joint deployment agreement has been terminated,But we are still customers of the smart patrol platform.",
             },
             round_num=2,
             timestamp="2026-07-01T09:10:00Z",
@@ -455,9 +455,9 @@ def _activities() -> Iterable[AgentActivity]:
         AgentActivity(
             platform="twitter",
             agent_id=101,
-            agent_name="陈屿",
+            agent_name="Chenyu",
             action_type="FOLLOW",
-            action_args={"target_user_name": "海岳能源"},
+            action_args={"target_user_name": "Haiyue Energy"},
             round_num=2,
             timestamp="2026-07-01T09:12:00Z",
         ),
@@ -563,7 +563,7 @@ def run(args: argparse.Namespace) -> dict[str, Any]:
         baseline_names = {_uuid(node): node.name for node in baseline_nodes}
         baseline_ceo = client.graph.search(
             graph_id=graph_id,
-            query="截至2026年4月底，谁担任澜舟科技首席执行官？",
+            query="As of 2026 year 4 end of month,Who serves as the CEO of Lanzhou Technology?",
             scope="edges",
             reranker="cross_encoder",
             limit=10,
@@ -614,14 +614,14 @@ def run(args: argparse.Namespace) -> dict[str, Any]:
 
         edge_search = client.graph.search(
             graph_id=graph_id,
-            query="澜舟科技当前首席执行官、当前总部以及与海岳能源的当前合作关系是什么？",
+            query="Current CEO of Lanzhou Technology,What is the current headquarters and current partnership with Haiyue Energy?",
             scope="edges",
             reranker="cross_encoder",
             limit=20,
         )
         node_search = client.graph.search(
             graph_id=graph_id,
-            query="澜舟科技管理层人物",
+            query="Lanzhou Technology Management Figures",
             scope="nodes",
             reranker="rrf",
             limit=10,
@@ -629,7 +629,7 @@ def run(args: argparse.Namespace) -> dict[str, Any]:
         )
         typed_edge_search = client.graph.search(
             graph_id=graph_id,
-            query="公司管理职位发生了什么变化？",
+            query="How corporate management positions have changed?",
             scope="edges",
             reranker="rrf",
             limit=10,
@@ -637,14 +637,14 @@ def run(args: argparse.Namespace) -> dict[str, Any]:
         )
         auto_search = client.graph.search(
             graph_id=graph_id,
-            query="总结澜舟科技最新的管理层、总部、产品与海岳能源关系。",
+            query="Summarizing Lanzhou Technology s latest management,Headquarters,Product relationship with Haiyue Energy.",
             scope="auto",
             max_characters=3000,
             return_raw_results=True,
         )
         episode_search = client.graph.search(
             graph_id=graph_id,
-            query="海岳能源为什么仍是客户但不再是联合部署伙伴？",
+            query="Why Haiyue Energy is still a customer but no longer a joint deployment partner?",
             scope="episodes",
             reranker="rrf",
             limit=10,
@@ -654,7 +654,7 @@ def run(args: argparse.Namespace) -> dict[str, Any]:
             (
                 node
                 for node in final_nodes
-                if node.name == "澜舟科技" and "Company" in (node.labels or [])
+                if node.name == "Lanzhou Technology" and "Company" in (node.labels or [])
             ),
             max(
                 final_nodes,
