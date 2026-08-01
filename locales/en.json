@@ -26,8 +26,8 @@
     "files": "files"
   },
   "meta": {
-    "title": "MiroFish - Predict Everything",
-    "description": "MiroFish - Social Media Opinion Simulation System"
+    "title": "MiroFish - Run the world before it happens",
+    "description": "MiroFish - collective intelligence and agent-based forecasting"
   },
   "nav": {
     "visitGithub": "Visit our Github page"
@@ -319,6 +319,10 @@
     "unknownFile": "Unknown file"
   },
   "api": {
+    "requestTimeout": "The request timed out. Please try again.",
+    "networkError": "Cannot reach the server. Check your connection and try again.",
+    "requestFailed": "The request failed. Please try again.",
+    "requestFailedStatus": "The request failed (HTTP {status}). Please try again.",
     "projectNotFound": "Project not found: {id}",
     "projectDeleteFailed": "Project not found or deletion failed: {id}",
     "projectDeleted": "Project deleted: {id}",

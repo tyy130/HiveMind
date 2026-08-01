@@ -1,7 +1,7 @@
 <template>
   <div class="workbench-panel">
     <div class="scroll-container">
-      <!-- Step 01: Ontology -->
+
       <div class="step-card" :class="{ 'active': currentPhase === 0, 'completed': currentPhase > 0 }">
         <div class="card-header">
           <div class="step-info">
@@ -14,20 +14,18 @@
             <span v-else class="badge pending">{{ $t('step1.ontologyPending') }}</span>
           </div>
         </div>
-        
+
         <div class="card-content">
           <p class="api-note">POST /api/graph/ontology/generate</p>
           <p class="description">
             {{ $t('step1.ontologyDesc') }}
           </p>
 
-          <!-- Loading / Progress -->
           <div v-if="currentPhase === 0 && ontologyProgress" class="progress-section">
             <div class="spinner-sm"></div>
             <span>{{ ontologyProgress.message || $t('step1.analyzingDocs') }}</span>
           </div>
 
-          <!-- Detail Overlay -->
           <div v-if="selectedOntologyItem" class="ontology-detail-overlay">
             <div class="detail-header">
                <div class="detail-title-group">
@@ -38,8 +36,7 @@
             </div>
             <div class="detail-body">
                <div class="detail-desc">{{ selectedOntologyItem.description }}</div>
-               
-               <!-- Attributes -->
+
                <div class="detail-section" v-if="selectedOntologyItem.attributes?.length">
                   <span class="section-label">ATTRIBUTES</span>
                   <div class="attr-list">
@@ -51,7 +48,6 @@
                   </div>
                </div>
 
-               <!-- Examples (Entity) -->
                <div class="detail-section" v-if="selectedOntologyItem.examples?.length">
                   <span class="section-label">EXAMPLES</span>
                   <div class="example-list">
@@ -59,7 +55,6 @@
                   </div>
                </div>
 
-               <!-- Source/Target (Relation) -->
                <div class="detail-section" v-if="selectedOntologyItem.source_targets?.length">
                   <span class="section-label">CONNECTIONS</span>
                   <div class="conn-list">
@@ -73,13 +68,12 @@
             </div>
           </div>
 
-          <!-- Generated Entity Tags -->
           <div v-if="projectData?.ontology?.entity_types" class="tags-container" :class="{ 'dimmed': selectedOntologyItem }">
             <span class="tag-label">GENERATED ENTITY TYPES</span>
             <div class="tags-list">
-              <span 
-                v-for="entity in projectData.ontology.entity_types" 
-                :key="entity.name" 
+              <span
+                v-for="entity in projectData.ontology.entity_types"
+                :key="entity.name"
                 class="entity-tag clickable"
                 @click="selectOntologyItem(entity, 'entity')"
               >
@@ -88,13 +82,12 @@
             </div>
           </div>
 
-          <!-- Generated Relation Tags -->
           <div v-if="projectData?.ontology?.edge_types" class="tags-container" :class="{ 'dimmed': selectedOntologyItem }">
             <span class="tag-label">GENERATED RELATION TYPES</span>
             <div class="tags-list">
-              <span 
-                v-for="rel in projectData.ontology.edge_types" 
-                :key="rel.name" 
+              <span
+                v-for="rel in projectData.ontology.edge_types"
+                :key="rel.name"
                 class="entity-tag clickable"
                 @click="selectOntologyItem(rel, 'relation')"
               >
@@ -105,7 +98,6 @@
         </div>
       </div>
 
-      <!-- Step 02: Graph Build -->
       <div class="step-card" :class="{ 'active': currentPhase === 1, 'completed': currentPhase > 1 }">
         <div class="card-header">
           <div class="step-info">
@@ -124,8 +116,7 @@
           <p class="description">
             {{ $t('step1.graphRagDesc') }}
           </p>
-          
-          <!-- Stats Cards -->
+
           <div class="stats-grid">
             <div class="stat-card">
               <span class="stat-value">{{ graphStats.nodes }}</span>
@@ -143,7 +134,6 @@
         </div>
       </div>
 
-      <!-- Step 03: Complete -->
       <div class="step-card" :class="{ 'active': currentPhase === 2, 'completed': currentPhase >= 2 }">
         <div class="card-header">
           <div class="step-info">
@@ -154,12 +144,12 @@
             <span v-if="currentPhase >= 2" class="badge accent">{{ $t('step1.inProgress') }}</span>
           </div>
         </div>
-        
+
         <div class="card-content">
           <p class="api-note">POST /api/simulation/create</p>
           <p class="description">{{ $t('step1.buildCompleteDesc') }}</p>
-          <button 
-            class="action-btn" 
+          <button
+            class="action-btn"
             :disabled="currentPhase < 2 || creatingSimulation"
             @click="handleEnterEnvSetup"
           >
@@ -170,7 +160,6 @@
       </div>
     </div>
 
-    <!-- Bottom Info / Logs -->
     <div class="system-logs">
       <div class="log-header">
         <span class="log-title">SYSTEM DASHBOARD</span>
@@ -209,16 +198,14 @@ defineEmits(['next-step'])
 const selectedOntologyItem = ref(null)
 const logContent = ref(null)
 const creatingSimulation = ref(false)
-
-// 进入环境搭建 - 创建 simulation 并跳转
 const handleEnterEnvSetup = async () => {
   if (!props.projectData?.project_id || !props.projectData?.graph_id) {
-    console.error('缺少项目或图谱信息')
+    console.error('Project or graph information is missing')
     return
   }
-  
+
   creatingSimulation.value = true
-  
+
   try {
     const res = await createSimulation({
       project_id: props.projectData.project_id,
@@ -226,19 +213,18 @@ const handleEnterEnvSetup = async () => {
       enable_twitter: true,
       enable_reddit: true
     })
-    
+
     if (res.success && res.data?.simulation_id) {
-      // 跳转到 simulation 页面
       router.push({
         name: 'Simulation',
         params: { simulationId: res.data.simulation_id }
       })
     } else {
-      console.error('创建模拟失败:', res.error)
+      console.error('Failed to create simulation:', res.error)
       alert(t('step1.createSimulationFailed', { error: res.error || t('common.unknownError') }))
     }
   } catch (err) {
-    console.error('创建模拟异常:', err)
+    console.error('Simulation creation failed:', err)
     alert(t('step1.createSimulationException', { error: err.message }))
   } finally {
     creatingSimulation.value = false
@@ -261,8 +247,6 @@ const formatDate = (dateStr) => {
   const d = new Date(dateStr)
   return d.toLocaleTimeString('en-US', { hour12: false }) + '.' + d.getMilliseconds()
 }
-
-// Auto-scroll logs
 watch(() => props.systemLogs.length, () => {
   nextTick(() => {
     if (logContent.value) {
@@ -298,7 +282,7 @@ watch(() => props.systemLogs.length, () => {
   box-shadow: 0 2px 8px rgba(0,0,0,0.04);
   border: 1px solid #EAEAEA;
   transition: all 0.3s ease;
-  position: relative; /* For absolute overlay */
+  position: relative;
 }
 
 .step-card.active {
@@ -364,7 +348,6 @@ watch(() => props.systemLogs.length, () => {
   margin-bottom: 16px;
 }
 
-/* Step 01 Tags */
 .tags-container {
   margin-top: 12px;
   transition: opacity 0.3s;
@@ -409,10 +392,9 @@ watch(() => props.systemLogs.length, () => {
     border-color: #CCC;
 }
 
-/* Ontology Detail Overlay */
 .ontology-detail-overlay {
     position: absolute;
-    top: 60px; /* Below header roughly */
+    top: 60px;
     left: 20px;
     right: 20px;
     bottom: 20px;
@@ -570,7 +552,6 @@ watch(() => props.systemLogs.length, () => {
     color: #BBB;
 }
 
-/* Step 02 Stats */
 .stats-grid {
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;
@@ -600,7 +581,6 @@ watch(() => props.systemLogs.length, () => {
   display: block;
 }
 
-/* Step 03 Button */
 .action-btn {
   width: 100%;
   background: #000;
@@ -643,7 +623,6 @@ watch(() => props.systemLogs.length, () => {
 
 @keyframes spin { to { transform: rotate(360deg); } }
 
-/* System Logs */
 .system-logs {
   background: #000;
   color: #DDD;
@@ -667,7 +646,7 @@ watch(() => props.systemLogs.length, () => {
   display: flex;
   flex-direction: column;
   gap: 4px;
-  height: 80px; /* Approx 4 lines visible */
+  height: 80px;
   overflow-y: auto;
   padding-right: 4px;
 }
