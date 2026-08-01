@@ -12,7 +12,7 @@ const sourceRoots = [
   join(repositoryRoot, 'locales')
 ]
 const textExtensions = new Set(['.css', '.html', '.js', '.json', '.vue'])
-const chineseUnicode = /[\u3400-\u4dbf\u4e00-\u9fff\uf900-\ufaff\u3000-\u303f\uff00-\uffef]/u
+const hanUnicode = /[\u3400-\u4dbf\u4e00-\u9fff\uf900-\ufaff\u3000-\u303f\uff00-\uffef]/u
 
 function collectTextFiles(path) {
   if (extname(path)) return textExtensions.has(extname(path)) ? [path] : []
@@ -23,12 +23,12 @@ function collectTextFiles(path) {
   })
 }
 
-test('frontend source, locale files, and tracked-facing paths contain no Chinese Unicode', () => {
+test('frontend source, locale files, and tracked-facing paths contain no Han Unicode', () => {
   const violations = []
 
   for (const file of sourceRoots.flatMap(collectTextFiles)) {
     const relativePath = relative(repositoryRoot, file)
-    if (chineseUnicode.test(relativePath) || chineseUnicode.test(readFileSync(file, 'utf8'))) {
+    if (hanUnicode.test(relativePath) || hanUnicode.test(readFileSync(file, 'utf8'))) {
       violations.push(relativePath)
     }
   }

@@ -9,7 +9,7 @@
     "check:english": "python3 scripts/check_english_only.py",
     "test:root": "python3 -m unittest discover -s tests -v",
     "test:backend": "cd backend && uv run --frozen pytest",
-    "test:frontend": "npm run build --prefix frontend",
+    "test:frontend": "npm test --prefix frontend && npm run build --prefix frontend",
     "test": "npm run check:english && npm run test:root && npm run test:backend && npm run test:frontend",
     "audit": "npm audit --omit=dev && npm --prefix frontend audit --omit=dev",
     "dev": "concurrently --kill-others -n \"backend,frontend\" -c \"green,cyan\" \"npm run backend\" \"npm run frontend\"",

@@ -8,7 +8,7 @@ test('resolveLocale keeps supported saved locales', () => {
 })
 
 test('resolveLocale falls back when storage contains an unsupported locale', () => {
-  assert.equal(resolveLocale('zh', ['en']), 'en')
+  assert.equal(resolveLocale('fr', ['en']), 'en')
 })
 
 test('resolveLocale uses the first loaded locale when the default is unavailable', () => {
