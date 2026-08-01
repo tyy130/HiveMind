@@ -1,778 +1,602 @@
 <template>
-  <div class="home-container">
-    <!-- 顶部导航栏 -->
-    <nav class="navbar">
-      <div class="nav-brand">MIROFISH</div>
-      <div class="nav-links">
-        <LanguageSwitcher />
-        <a href="https://github.com/666ghj/MiroFish" target="_blank" rel="noopener noreferrer" class="github-link">
-          {{ $t('nav.visitGithub') }} <span class="arrow">↗</span>
+  <div class="home-shell">
+    <nav class="site-nav" aria-label="Primary navigation">
+      <button class="brand-lockup" type="button" @click="scrollToTop">
+        <span class="brand-mark" aria-hidden="true">MF</span>
+        <span>
+          <strong>MiroFish</strong>
+          <small>Collective intelligence engine</small>
+        </span>
+      </button>
+
+      <div class="nav-actions">
+        <span class="system-status"><i></i> System online</span>
+        <a
+          class="nav-link"
+          href="https://github.com/666ghj/MiroFish"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          View source <span aria-hidden="true">↗</span>
         </a>
       </div>
     </nav>
 
-    <div class="main-content">
-      <!-- 上半部分：Hero 区域 -->
-      <section class="hero-section">
-        <div class="hero-left">
-          <div class="tag-row">
-            <span class="orange-tag">{{ $t('home.tagline') }}</span>
-            <span class="version-text">{{ $t('home.version') }}</span>
-          </div>
-          
-          <h1 class="main-title">
-            {{ $t('home.heroTitle1') }}<br>
-            <span class="gradient-text">{{ $t('home.heroTitle2') }}</span>
-          </h1>
-          
-          <div class="hero-desc">
-            <p>
-              <i18n-t keypath="home.heroDesc" tag="span">
-                <template #brand><span class="highlight-bold">{{ $t('home.heroDescBrand') }}</span></template>
-                <template #agentScale><span class="highlight-orange">{{ $t('home.heroDescAgentScale') }}</span></template>
-                <template #optimalSolution><span class="highlight-code">{{ $t('home.heroDescOptimalSolution') }}</span></template>
-              </i18n-t>
-            </p>
-            <p class="slogan-text">
-              {{ $t('home.slogan') }}<span class="blinking-cursor">_</span>
-            </p>
-          </div>
-           
-          <div class="decoration-square"></div>
-        </div>
-        
-        <div class="hero-right">
-          <!-- Logo 区域 -->
-          <div class="logo-container">
-            <img src="../assets/logo/MiroFish_logo_left.jpeg" :alt="$t('home.logoAlt')" class="hero-logo" />
-          </div>
-          
-          <button class="scroll-down-btn" :aria-label="$t('home.scrollToInput')" @click="scrollToBottom">
-            ↓
-          </button>
-        </div>
-      </section>
-
-      <!-- 下半部分：双栏布局 -->
-      <section class="dashboard-section">
-        <!-- 左栏：状态与步骤 -->
-        <div class="left-panel">
-          <div class="panel-header">
-            <span class="status-dot">■</span> {{ $t('home.systemStatus') }}
-          </div>
-          
-          <h2 class="section-title">{{ $t('home.systemReady') }}</h2>
-          <p class="section-desc">
-            {{ $t('home.systemReadyDesc') }}
+    <main>
+      <section class="hero-grid">
+        <div class="hero-copy">
+          <div class="eyebrow"><span>Preview 0.1</span> Agent-based forecasting</div>
+          <h1>Run the world<br><em>before it happens.</em></h1>
+          <p class="hero-lede">
+            Turn source material into a living simulation. MiroFish builds a knowledge graph,
+            generates agent populations, and lets you test how narratives evolve before decisions are made.
           </p>
-          
-          <!-- 数据指标卡片 -->
-          <div class="metrics-row">
-            <div class="metric-card">
-              <div class="metric-value">{{ $t('home.metricLowCost') }}</div>
-              <div class="metric-label">{{ $t('home.metricLowCostDesc') }}</div>
-            </div>
-            <div class="metric-card">
-              <div class="metric-value">{{ $t('home.metricHighAvail') }}</div>
-              <div class="metric-label">{{ $t('home.metricHighAvailDesc') }}</div>
-            </div>
+
+          <div class="hero-actions">
+            <button class="primary-action" type="button" @click="focusBrief">
+              Start a simulation <span aria-hidden="true">→</span>
+            </button>
+            <button class="text-action" type="button" @click="scrollToWorkflow">
+              See how it works
+            </button>
           </div>
 
-          <!-- 项目模拟步骤介绍 (新增区域) -->
-          <div class="steps-container">
-            <div class="steps-header">
-               <span class="diamond-icon">◇</span> {{ $t('home.workflowSequence') }}
+          <dl class="proof-grid">
+            <div>
+              <dt>01</dt>
+              <dd>Grounded in your source material</dd>
             </div>
-            <div class="workflow-list">
-              <div class="workflow-item">
-                <span class="step-num">01</span>
-                <div class="step-info">
-                  <div class="step-title">{{ $t('home.step01Title') }}</div>
-                  <div class="step-desc">{{ $t('home.step01Desc') }}</div>
-                </div>
-              </div>
-              <div class="workflow-item">
-                <span class="step-num">02</span>
-                <div class="step-info">
-                  <div class="step-title">{{ $t('home.step02Title') }}</div>
-                  <div class="step-desc">{{ $t('home.step02Desc') }}</div>
-                </div>
-              </div>
-              <div class="workflow-item">
-                <span class="step-num">03</span>
-                <div class="step-info">
-                  <div class="step-title">{{ $t('home.step03Title') }}</div>
-                  <div class="step-desc">{{ $t('home.step03Desc') }}</div>
-                </div>
-              </div>
-              <div class="workflow-item">
-                <span class="step-num">04</span>
-                <div class="step-info">
-                  <div class="step-title">{{ $t('home.step04Title') }}</div>
-                  <div class="step-desc">{{ $t('home.step04Desc') }}</div>
-                </div>
-              </div>
-              <div class="workflow-item">
-                <span class="step-num">05</span>
-                <div class="step-info">
-                  <div class="step-title">{{ $t('home.step05Title') }}</div>
-                  <div class="step-desc">{{ $t('home.step05Desc') }}</div>
-                </div>
-              </div>
+            <div>
+              <dt>02</dt>
+              <dd>Agents evolve across social environments</dd>
             </div>
-          </div>
+            <div>
+              <dt>03</dt>
+              <dd>Reports stay traceable to the graph</dd>
+            </div>
+          </dl>
         </div>
 
-        <!-- 右栏：交互控制台 -->
-        <div class="right-panel">
-          <div class="console-box">
-            <!-- 上传区域 -->
-            <div class="console-section">
-              <div class="console-header">
-                <span class="console-label">{{ $t('home.realitySeed') }}</span>
-                <span class="console-meta">{{ $t('home.supportedFormats') }}</span>
-              </div>
-              
-              <div 
-                class="upload-zone"
-                :class="{ 'drag-over': isDragOver, 'has-files': files.length > 0 }"
-                @dragover.prevent="handleDragOver"
-                @dragleave.prevent="handleDragLeave"
-                @drop.prevent="handleDrop"
-                @click="triggerFileInput"
-              >
-                <input
-                  ref="fileInput"
-                  class="file-input"
-                  type="file"
-                  multiple
-                  accept=".pdf,.md,.txt"
-                  @change="handleFileSelect"
-                  @click.stop
-                  :disabled="loading"
-                  :aria-label="$t('home.uploadFiles')"
-                />
-                
-                <div v-if="files.length === 0" class="upload-placeholder">
-                  <div class="upload-icon">↑</div>
-                  <div class="upload-title">{{ $t('home.dragToUpload') }}</div>
-                  <div class="upload-hint">{{ $t('home.orBrowse') }}</div>
-                </div>
-                
-                <div v-else class="file-list">
-                  <div v-for="(file, index) in files" :key="index" class="file-item">
-                    <span class="file-icon">📄</span>
-                    <span class="file-name">{{ file.name }}</span>
-                    <button
-                      type="button"
-                      class="remove-btn"
-                      :aria-label="$t('home.removeFile', { name: file.name })"
-                      @click.stop="removeFile(index)"
-                    >×</button>
-                  </div>
-                </div>
+        <aside id="simulation-brief" class="brief-card" aria-labelledby="brief-title">
+          <div class="brief-card-header">
+            <div>
+              <span class="section-kicker">New run</span>
+              <h2 id="brief-title">Build your simulation brief</h2>
+            </div>
+            <span class="step-chip">Step 1 of 5</span>
+          </div>
+
+          <div
+            class="upload-panel"
+            :class="{ active: isDragOver, populated: files.length > 0 }"
+            @dragover.prevent="handleDragOver"
+            @dragleave.prevent="handleDragLeave"
+            @drop.prevent="handleDrop"
+            @click="triggerFileInput"
+          >
+            <input
+              ref="fileInput"
+              class="visually-hidden-input"
+              type="file"
+              multiple
+              accept=".pdf,.md,.txt"
+              :disabled="loading"
+              aria-label="Upload PDF, Markdown, or text files"
+              @change="handleFileSelect"
+              @click.stop
+            />
+
+            <div v-if="files.length === 0" class="upload-empty">
+              <span class="upload-icon" aria-hidden="true">↑</span>
+              <div>
+                <strong>Drop your source files here</strong>
+                <span>PDF, Markdown, or TXT — click to browse</span>
               </div>
             </div>
 
-            <!-- 分割线 -->
-            <div class="console-divider">
-              <span>{{ $t('home.inputParams') }}</span>
-            </div>
-
-            <!-- 输入区域 -->
-            <div class="console-section">
-              <div class="console-header">
-                <span class="console-label">{{ $t('home.simulationPrompt') }}</span>
+            <div v-else class="file-stack">
+              <div class="file-stack-header">
+                <span>{{ files.length }} {{ files.length === 1 ? 'source' : 'sources' }} ready</span>
+                <button type="button" @click.stop="triggerFileInput">Add more</button>
               </div>
-              <div class="input-wrapper">
-                <textarea
-                  v-model="formData.simulationRequirement"
-                  class="code-input"
-                  :placeholder="$t('home.promptPlaceholder')"
-                  rows="6"
-                  :disabled="loading"
-                ></textarea>
-                <div class="model-badge">{{ $t('home.engineBadge') }}</div>
+              <div v-for="file in files" :key="`${file.name}-${file.size}`" class="file-row">
+                <span class="file-type" aria-hidden="true">{{ fileExtension(file.name) }}</span>
+                <span class="file-meta">
+                  <strong>{{ file.name }}</strong>
+                  <small>{{ formatFileSize(file.size) }}</small>
+                </span>
+                <button
+                  class="remove-file"
+                  type="button"
+                  :aria-label="`Remove ${file.name}`"
+                  @click.stop="removeFile(file)"
+                >
+                  ×
+                </button>
               </div>
-            </div>
-
-            <!-- 启动按钮 -->
-            <div class="console-section btn-section">
-              <button 
-                class="start-engine-btn"
-                @click="startSimulation"
-                :disabled="!canSubmit || loading"
-              >
-                <span v-if="!loading">{{ $t('home.startEngine') }}</span>
-                <span v-else>{{ $t('home.initializing') }}</span>
-                <span class="btn-arrow">→</span>
-              </button>
             </div>
           </div>
-        </div>
+
+          <label class="prompt-field">
+            <span>
+              <strong>What do you want to understand?</strong>
+              <small>Be specific about the decision, audience, and time horizon.</small>
+            </span>
+            <textarea
+              ref="promptInput"
+              v-model="formData.simulationRequirement"
+              rows="6"
+              :disabled="loading"
+              placeholder="Example: How would customers respond over the next 30 days if we changed our pricing model?"
+            ></textarea>
+          </label>
+
+          <p v-if="error" class="form-error" role="alert">{{ error }}</p>
+
+          <button
+            class="launch-button"
+            type="button"
+            :disabled="!canSubmit || loading"
+            @click="startSimulation"
+          >
+            <span>{{ loading ? 'Preparing workspace…' : 'Create simulation' }}</span>
+            <span aria-hidden="true">→</span>
+          </button>
+
+          <p class="brief-note">Your files stay attached to this local simulation workflow.</p>
+        </aside>
       </section>
 
-      <!-- 历史项目数据库 -->
-      <HistoryDatabase />
-    </div>
+      <section id="workflow" class="workflow-section" aria-labelledby="workflow-title">
+        <div class="section-heading">
+          <div>
+            <span class="section-kicker">From evidence to action</span>
+            <h2 id="workflow-title">One continuous forecasting workflow.</h2>
+          </div>
+          <p>Each stage builds on the last, so every insight can be traced back to source evidence.</p>
+        </div>
+
+        <ol class="workflow-grid">
+          <li v-for="step in workflowSteps" :key="step.number">
+            <span class="workflow-number">{{ step.number }}</span>
+            <div>
+              <h3>{{ step.title }}</h3>
+              <p>{{ step.description }}</p>
+            </div>
+            <span class="workflow-arrow" aria-hidden="true">↗</span>
+          </li>
+        </ol>
+      </section>
+
+      <section class="history-wrap" aria-labelledby="history-title">
+        <div class="section-heading compact">
+          <div>
+            <span class="section-kicker">Continue exploring</span>
+            <h2 id="history-title">Recent simulations</h2>
+          </div>
+          <p>Return to a graph, simulation, report, or agent conversation without losing context.</p>
+        </div>
+        <HistoryDatabase />
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <span>MiroFish — Collective intelligence for consequential decisions</span>
+      <span>Five stages. One evidence trail.</span>
+    </footer>
   </div>
 </template>
 
 <script setup>
-import { ref, computed } from 'vue'
+import { computed, ref } from 'vue'
 import { useRouter } from 'vue-router'
 import HistoryDatabase from '../components/HistoryDatabase.vue'
-import LanguageSwitcher from '../components/LanguageSwitcher.vue'
+import { setPendingUpload } from '../store/pendingUpload.js'
 
 const router = useRouter()
-
-// 表单数据
-const formData = ref({
-  simulationRequirement: ''
-})
-
-// 文件列表
+const fileInput = ref(null)
+const promptInput = ref(null)
 const files = ref([])
-
-// 状态
 const loading = ref(false)
 const error = ref('')
 const isDragOver = ref(false)
+const formData = ref({ simulationRequirement: '' })
 
-// 文件输入引用
-const fileInput = ref(null)
+const workflowSteps = [
+  { number: '01', title: 'Build the graph', description: 'Extract entities, relationships, and evidence from your source material.' },
+  { number: '02', title: 'Configure the world', description: 'Generate agent profiles, environments, and simulation constraints.' },
+  { number: '03', title: 'Run the simulation', description: 'Watch agents act, react, and reshape the narrative over time.' },
+  { number: '04', title: 'Read the signal', description: 'Synthesize outcomes into a structured, evidence-backed report.' },
+  { number: '05', title: 'Interrogate the result', description: 'Talk with simulated agents and probe the report from any angle.' }
+]
 
-// 计算属性:是否可以提交
-const canSubmit = computed(() => {
-  return formData.value.simulationRequirement.trim() !== '' && files.value.length > 0
-})
+const canSubmit = computed(() => (
+  formData.value.simulationRequirement.trim().length > 0 && files.value.length > 0
+))
 
-// 触发文件选择
+const fileExtension = name => name.split('.').pop()?.toUpperCase() || 'FILE'
+
+const formatFileSize = (size) => {
+  if (size < 1024) return `${size} B`
+  if (size < 1024 * 1024) return `${Math.round(size / 1024)} KB`
+  return `${(size / (1024 * 1024)).toFixed(1)} MB`
+}
+
+const scrollToTop = () => window.scrollTo({ top: 0, behavior: 'smooth' })
+const scrollToWorkflow = () => document.querySelector('#workflow')?.scrollIntoView({ behavior: 'smooth' })
+
+const focusBrief = () => {
+  document.querySelector('#simulation-brief')?.scrollIntoView({ behavior: 'smooth', block: 'center' })
+  window.setTimeout(() => promptInput.value?.focus(), 500)
+}
+
 const triggerFileInput = () => {
-  if (!loading.value) {
-    fileInput.value?.click()
-  }
+  if (!loading.value) fileInput.value?.click()
 }
 
-// 处理文件选择
+const addFiles = (incomingFiles) => {
+  const accepted = []
+  const rejected = []
+
+  for (const file of incomingFiles) {
+    const extension = file.name.split('.').pop()?.toLowerCase()
+    if (['pdf', 'md', 'txt'].includes(extension)) accepted.push(file)
+    else rejected.push(file.name)
+  }
+
+  const existing = new Set(files.value.map(file => `${file.name}-${file.size}`))
+  files.value.push(...accepted.filter(file => !existing.has(`${file.name}-${file.size}`)))
+  error.value = rejected.length > 0
+    ? `Unsupported file type: ${rejected.join(', ')}. Use PDF, Markdown, or TXT.`
+    : ''
+}
+
 const handleFileSelect = (event) => {
-  const selectedFiles = Array.from(event.target.files)
-  addFiles(selectedFiles)
+  addFiles(Array.from(event.target.files || []))
+  event.target.value = ''
 }
 
-// 处理拖拽相关
-const handleDragOver = (e) => {
-  if (!loading.value) {
-    isDragOver.value = true
-  }
+const handleDragOver = () => {
+  if (!loading.value) isDragOver.value = true
 }
 
-const handleDragLeave = (e) => {
+const handleDragLeave = () => {
   isDragOver.value = false
 }
 
-const handleDrop = (e) => {
+const handleDrop = (event) => {
   isDragOver.value = false
-  if (loading.value) return
-  
-  const droppedFiles = Array.from(e.dataTransfer.files)
-  addFiles(droppedFiles)
+  if (!loading.value) addFiles(Array.from(event.dataTransfer.files || []))
 }
 
-// 添加文件
-const addFiles = (newFiles) => {
-  const validFiles = newFiles.filter(file => {
-    const ext = file.name.split('.').pop().toLowerCase()
-    return ['pdf', 'md', 'txt'].includes(ext)
-  })
-  files.value.push(...validFiles)
+const removeFile = (target) => {
+  files.value = files.value.filter(file => file !== target)
 }
 
-// 移除文件
-const removeFile = (index) => {
-  files.value.splice(index, 1)
-}
-
-// 滚动到底部
-const scrollToBottom = () => {
-  window.scrollTo({
-    top: document.body.scrollHeight,
-    behavior: 'smooth'
-  })
-}
-
-// 开始模拟 - 立即跳转，API调用在Process页面进行
-const startSimulation = () => {
+const startSimulation = async () => {
   if (!canSubmit.value || loading.value) return
-  
-  // 存储待上传的数据
-  import('../store/pendingUpload.js').then(({ setPendingUpload }) => {
-    setPendingUpload(files.value, formData.value.simulationRequirement)
-    
-    // 立即跳转到Process页面（使用特殊标识表示新建项目）
-    router.push({
-      name: 'Process',
-      params: { projectId: 'new' }
-    })
-  })
+
+  loading.value = true
+  error.value = ''
+  setPendingUpload(files.value, formData.value.simulationRequirement.trim())
+
+  try {
+    await router.push({ name: 'Process', params: { projectId: 'new' } })
+  } catch (err) {
+    error.value = err?.message || 'Unable to open the simulation workspace.'
+    loading.value = false
+  }
 }
 </script>
 
 <style scoped>
-/* 全局变量与重置 */
-:root {
-  --black: #000000;
-  --white: #FFFFFF;
-  --orange: #FF4500;
-  --gray-light: #F5F5F5;
-  --gray-text: #666666;
-  --border: #E5E5E5;
-  /* 
-    使用 Space Grotesk 作为主要标题字体，JetBrains Mono 作为代码/标签字体
-    确保已在 index.html 引入这些 Google Fonts 
-  */
-  --font-mono: 'JetBrains Mono', monospace;
-  --font-sans: 'Space Grotesk', 'Noto Sans SC', system-ui, sans-serif;
-  --font-cn: 'Noto Sans SC', system-ui, sans-serif;
-}
-
-.home-container {
+.home-shell {
   min-height: 100vh;
-  background: var(--white);
-  font-family: var(--font-sans);
-  color: var(--black);
+  color: var(--ink-950);
+  background:
+    radial-gradient(circle at 82% 8%, rgba(73, 222, 177, 0.16), transparent 28rem),
+    radial-gradient(circle at 8% 22%, rgba(93, 135, 255, 0.12), transparent 26rem),
+    var(--surface-0);
 }
 
-/* 顶部导航 */
-.navbar {
-  height: 60px;
-  background: var(--black);
-  color: var(--white);
+.site-nav {
+  position: sticky;
+  top: 0;
+  z-index: 30;
   display: flex;
+  align-items: center;
   justify-content: space-between;
-  align-items: center;
-  padding: 0 40px;
-}
-
-.nav-brand {
-  font-family: var(--font-mono);
-  font-weight: 800;
-  letter-spacing: 1px;
-  font-size: 1.2rem;
-}
-
-.nav-links {
-  display: flex;
-  align-items: center;
-  gap: 16px;
-}
-
-.github-link {
-  color: var(--white);
-  text-decoration: none;
-  font-family: var(--font-mono);
-  font-size: 0.9rem;
-  font-weight: 500;
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  transition: opacity 0.2s;
-}
-
-.github-link:hover {
-  opacity: 0.8;
-}
-
-.arrow {
-  font-family: sans-serif;
-}
-
-/* 主要内容区 */
-.main-content {
-  max-width: 1400px;
+  width: min(1440px, calc(100% - 48px));
   margin: 0 auto;
-  padding: 60px 40px;
+  padding: 18px 0;
+  border-bottom: 1px solid rgba(16, 27, 45, 0.1);
+  background: rgba(247, 249, 252, 0.84);
+  backdrop-filter: blur(18px);
 }
 
-/* Hero 区域 */
-.hero-section {
-  display: flex;
-  justify-content: space-between;
-  margin-bottom: 80px;
-  position: relative;
-}
-
-.hero-left {
-  flex: 1;
-  padding-right: 60px;
-}
-
-.tag-row {
-  display: flex;
+.brand-lockup {
+  display: inline-flex;
   align-items: center;
-  gap: 15px;
-  margin-bottom: 25px;
-  font-family: var(--font-mono);
-  font-size: 0.8rem;
-}
-
-.orange-tag {
-  background: var(--orange);
-  color: var(--white);
-  padding: 4px 10px;
-  font-weight: 700;
-  letter-spacing: 1px;
-  font-size: 0.75rem;
-}
-
-.version-text {
-  color: #999;
-  font-weight: 500;
-  letter-spacing: 0.5px;
-}
-
-.main-title {
-  font-size: 4.5rem;
-  line-height: 1.2;
-  font-weight: 500;
-  margin: 0 0 40px 0;
-  letter-spacing: -2px;
-  color: var(--black);
-}
-
-.gradient-text {
-  background: linear-gradient(90deg, #000000 0%, #444444 100%);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  display: inline-block;
-}
-
-.hero-desc {
-  font-size: 1.05rem;
-  line-height: 1.8;
-  color: var(--gray-text);
-  max-width: 640px;
-  margin-bottom: 50px;
-  font-weight: 400;
-  text-align: justify;
-}
-
-.hero-desc p {
-  margin-bottom: 1.5rem;
-}
-
-.highlight-bold {
-  color: var(--black);
-  font-weight: 700;
-}
-
-.highlight-orange {
-  color: var(--orange);
-  font-weight: 700;
-  font-family: var(--font-mono);
-}
-
-.highlight-code {
-  background: rgba(0, 0, 0, 0.05);
-  padding: 2px 6px;
-  border-radius: 2px;
-  font-family: var(--font-mono);
-  font-size: 0.9em;
-  color: var(--black);
-  font-weight: 600;
-}
-
-.slogan-text {
-  font-size: 1.2rem;
-  font-weight: 520;
-  color: var(--black);
-  letter-spacing: 1px;
-  border-left: 3px solid var(--orange);
-  padding-left: 15px;
-  margin-top: 20px;
-}
-
-.blinking-cursor {
-  color: var(--orange);
-  animation: blink 1s step-end infinite;
-  font-weight: 700;
-}
-
-@keyframes blink {
-  0%, 100% { opacity: 1; }
-  50% { opacity: 0; }
-}
-
-.decoration-square {
-  width: 16px;
-  height: 16px;
-  background: var(--orange);
-}
-
-.hero-right {
-  flex: 0.8;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  align-items: flex-end;
-}
-
-.logo-container {
-  width: 100%;
-  display: flex;
-  justify-content: flex-end;
-  padding-right: 40px;
-}
-
-.hero-logo {
-  max-width: 500px; /* 调整logo大小 */
-  width: 100%;
-}
-
-.scroll-down-btn {
-  width: 40px;
-  height: 40px;
-  border: 1px solid var(--border);
+  gap: 12px;
+  border: 0;
   background: transparent;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  color: inherit;
+  text-align: left;
   cursor: pointer;
-  color: var(--orange);
-  font-size: 1.2rem;
-  transition: all 0.2s;
 }
 
-.scroll-down-btn:hover {
-  border-color: var(--orange);
+.brand-lockup strong,
+.brand-lockup small {
+  display: block;
 }
 
-/* Dashboard 双栏布局 */
-.dashboard-section {
-  display: flex;
-  gap: 60px;
-  border-top: 1px solid var(--border);
-  padding-top: 60px;
-  align-items: flex-start;
-}
-
-.dashboard-section .left-panel,
-.dashboard-section .right-panel {
-  display: flex;
-  flex-direction: column;
-}
-
-/* 左侧面板 */
-.left-panel {
-  flex: 0.8;
-}
-
-.panel-header {
-  font-family: var(--font-mono);
-  font-size: 0.8rem;
-  color: #999;
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  margin-bottom: 20px;
-}
-
-.status-dot {
-  color: var(--orange);
-  font-size: 0.8rem;
-}
-
-.section-title {
-  font-size: 2rem;
-  font-weight: 520;
-  margin: 0 0 15px 0;
-}
-
-.section-desc {
-  color: var(--gray-text);
-  margin-bottom: 25px;
-  line-height: 1.6;
-}
-
-.metrics-row {
-  display: flex;
-  gap: 20px;
-  margin-bottom: 15px;
-}
-
-.metric-card {
-  border: 1px solid var(--border);
-  padding: 20px 30px;
-  min-width: 150px;
-}
-
-.metric-value {
-  font-family: var(--font-mono);
-  font-size: 1.8rem;
-  font-weight: 520;
-  margin-bottom: 5px;
-}
-
-.metric-label {
-  font-size: 0.85rem;
-  color: #999;
-}
-
-/* 项目模拟步骤介绍 */
-.steps-container {
-  border: 1px solid var(--border);
-  padding: 30px;
-  position: relative;
-}
-
-.steps-header {
-  font-family: var(--font-mono);
-  font-size: 0.8rem;
-  color: #999;
-  margin-bottom: 25px;
-  display: flex;
-  align-items: center;
-  gap: 8px;
-}
-
-.diamond-icon {
-  font-size: 1.2rem;
-  line-height: 1;
-}
-
-.workflow-list {
-  display: flex;
-  flex-direction: column;
-  gap: 20px;
-}
-
-.workflow-item {
-  display: flex;
-  align-items: flex-start;
-  gap: 20px;
-}
-
-.step-num {
-  font-family: var(--font-mono);
-  font-weight: 700;
-  color: var(--black);
-  opacity: 0.3;
-}
-
-.step-info {
-  flex: 1;
-}
-
-.step-title {
-  font-weight: 520;
+.brand-lockup strong {
+  font-family: var(--font-display);
   font-size: 1rem;
-  margin-bottom: 4px;
+  letter-spacing: -0.02em;
 }
 
-.step-desc {
-  font-size: 0.85rem;
-  color: var(--gray-text);
+.brand-lockup small {
+  margin-top: 1px;
+  color: var(--ink-500);
+  font-size: 0.68rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
 }
 
-/* 右侧交互控制台 */
-.right-panel {
-  flex: 1.2;
+.brand-mark {
+  display: grid;
+  width: 38px;
+  height: 38px;
+  place-items: center;
+  border-radius: 12px;
+  color: #07131f;
+  background: var(--accent);
+  font-family: var(--font-mono);
+  font-size: 0.78rem;
+  font-weight: 800;
 }
 
-.console-box {
-  border: 1px solid #CCC; /* 外部实线 */
-  padding: 8px; /* 内边距形成双重边框感 */
+.nav-actions,
+.hero-actions,
+.file-stack-header {
+  display: flex;
+  align-items: center;
 }
 
-.console-section {
-  padding: 20px;
+.nav-actions {
+  gap: 24px;
 }
 
-.console-section.btn-section {
-  padding-top: 0;
+.system-status {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  color: var(--ink-600);
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  text-transform: uppercase;
 }
 
-.console-header {
+.system-status i {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: #24b47e;
+  box-shadow: 0 0 0 4px rgba(36, 180, 126, 0.12);
+}
+
+.nav-link {
+  color: var(--ink-900);
+  font-size: 0.84rem;
+  font-weight: 700;
+  text-decoration: none;
+}
+
+.hero-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1.03fr) minmax(420px, 0.72fr);
+  gap: clamp(48px, 7vw, 112px);
+  align-items: center;
+  width: min(1320px, calc(100% - 48px));
+  min-height: calc(100vh - 75px);
+  margin: 0 auto;
+  padding: 72px 0 88px;
+}
+
+.hero-copy {
+  max-width: 760px;
+}
+
+.eyebrow,
+.section-kicker {
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+.eyebrow {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  color: var(--ink-500);
+}
+
+.eyebrow span {
+  padding: 7px 10px;
+  border: 1px solid rgba(16, 27, 45, 0.14);
+  border-radius: 999px;
+  color: var(--ink-800);
+  background: rgba(255, 255, 255, 0.74);
+}
+
+h1 {
+  margin: 28px 0 26px;
+  font-family: var(--font-display);
+  font-size: clamp(4.2rem, 7.5vw, 7.8rem);
+  font-weight: 620;
+  letter-spacing: -0.075em;
+  line-height: 0.87;
+}
+
+h1 em {
+  color: var(--ink-400);
+  font-style: normal;
+}
+
+.hero-lede {
+  max-width: 680px;
+  color: var(--ink-600);
+  font-size: clamp(1.02rem, 1.4vw, 1.24rem);
+  line-height: 1.72;
+}
+
+.hero-actions {
+  gap: 22px;
+  margin: 36px 0 56px;
+}
+
+.primary-action,
+.launch-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: space-between;
+  border: 0;
+  color: #f8fbff;
+  background: var(--ink-950);
+  font-weight: 750;
+  cursor: pointer;
+  box-shadow: 0 16px 30px rgba(8, 19, 31, 0.16);
+}
+
+.primary-action {
+  gap: 28px;
+  min-width: 222px;
+  padding: 16px 18px;
+  border-radius: 14px;
+}
+
+.primary-action:hover,
+.launch-button:hover:not(:disabled) {
+  transform: translateY(-2px);
+  background: #16283b;
+}
+
+.text-action {
+  border: 0;
+  border-bottom: 1px solid var(--ink-300);
+  background: transparent;
+  color: var(--ink-700);
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.proof-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+  margin: 0;
+}
+
+.proof-grid div {
+  padding-top: 16px;
+  border-top: 1px solid rgba(16, 27, 45, 0.14);
+}
+
+.proof-grid dt {
+  color: var(--accent-strong);
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  font-weight: 800;
+}
+
+.proof-grid dd {
+  margin: 8px 0 0;
+  color: var(--ink-600);
+  font-size: 0.82rem;
+  line-height: 1.45;
+}
+
+.brief-card {
+  position: relative;
+  padding: 26px;
+  overflow: hidden;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 26px;
+  color: #ecf2f8;
+  background:
+    linear-gradient(145deg, rgba(255, 255, 255, 0.07), transparent 45%),
+    #0b1826;
+  box-shadow: 0 34px 90px rgba(16, 27, 45, 0.24);
+}
+
+.brief-card::after {
+  position: absolute;
+  right: -80px;
+  bottom: -100px;
+  width: 260px;
+  height: 260px;
+  border-radius: 50%;
+  background: rgba(73, 222, 177, 0.12);
+  content: '';
+  filter: blur(12px);
+  pointer-events: none;
+}
+
+.brief-card-header,
+.section-heading {
   display: flex;
   justify-content: space-between;
-  margin-bottom: 15px;
-  font-family: var(--font-mono);
-  font-size: 0.75rem;
-  color: #666;
+  gap: 28px;
 }
 
-.upload-zone {
-  border: 1px dashed #CCC;
-  height: 200px;
-  overflow-y: auto;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  cursor: pointer;
-  transition: all 0.3s;
-  background: #FAFAFA;
-}
-
-.upload-zone.has-files {
+.brief-card-header {
   align-items: flex-start;
+  margin-bottom: 22px;
 }
 
-.upload-zone:hover {
-  background: #F0F0F0;
-  border-color: #999;
+.section-kicker {
+  color: var(--accent);
 }
 
-.upload-placeholder {
-  text-align: center;
+.brief-card h2 {
+  margin: 6px 0 0;
+  font-family: var(--font-display);
+  font-size: 1.55rem;
+  letter-spacing: -0.035em;
 }
 
-.upload-icon {
-  width: 40px;
-  height: 40px;
-  border: 1px solid #DDD;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  margin: 0 auto 15px;
-  color: #999;
-}
-
-.upload-title {
-  font-weight: 500;
-  font-size: 0.9rem;
-  margin-bottom: 5px;
-}
-
-.upload-hint {
+.step-chip {
+  flex: 0 0 auto;
+  padding: 7px 9px;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 999px;
+  color: #a7b5c3;
   font-family: var(--font-mono);
-  font-size: 0.75rem;
-  color: #999;
+  font-size: 0.66rem;
 }
 
-.file-list {
-  width: 100%;
-  padding: 15px;
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
+.upload-panel {
+  position: relative;
+  min-height: 108px;
+  padding: 16px;
+  border: 1px dashed rgba(255, 255, 255, 0.22);
+  border-radius: 16px;
+  background: rgba(255, 255, 255, 0.035);
+  cursor: pointer;
+  transition: border-color 0.2s, background 0.2s;
 }
 
-.file-item {
-  display: flex;
-  align-items: center;
-  background: var(--white);
-  padding: 8px 12px;
-  border: 1px solid #EEE;
-  font-family: var(--font-mono);
-  font-size: 0.85rem;
+.upload-panel:hover,
+.upload-panel.active,
+.upload-panel:focus-within {
+  border-color: var(--accent);
+  background: rgba(73, 222, 177, 0.07);
 }
 
-.file-name {
-  flex: 1;
-  margin: 0 10px;
-}
-
-.file-input {
+.visually-hidden-input {
   position: absolute;
   width: 1px;
   height: 1px;
@@ -784,194 +608,374 @@ const startSimulation = () => {
   border: 0;
 }
 
-.upload-zone:focus-within {
-  outline: 2px solid var(--orange);
-  outline-offset: 2px;
-}
-
-.remove-btn {
-  background: none;
-  border: none;
-  cursor: pointer;
-  font-size: 1.2rem;
-  color: #999;
-}
-
-.console-divider {
+.upload-empty {
   display: flex;
   align-items: center;
-  margin: 10px 0;
+  gap: 14px;
+  min-height: 74px;
 }
 
-.console-divider::before,
-.console-divider::after {
-  content: '';
-  flex: 1;
-  height: 1px;
-  background: #EEE;
+.upload-icon {
+  display: grid;
+  width: 46px;
+  height: 46px;
+  flex: 0 0 auto;
+  place-items: center;
+  border-radius: 13px;
+  color: #07131f;
+  background: var(--accent);
+  font-size: 1.35rem;
 }
 
-.console-divider span {
-  padding: 0 15px;
+.upload-empty strong,
+.upload-empty span,
+.prompt-field strong,
+.prompt-field small {
+  display: block;
+}
+
+.upload-empty strong {
+  font-size: 0.92rem;
+}
+
+.upload-empty div > span,
+.prompt-field small,
+.brief-note {
+  color: #94a5b7;
+  font-size: 0.72rem;
+}
+
+.upload-empty div > span {
+  margin-top: 5px;
+}
+
+.file-stack-header {
+  justify-content: space-between;
+  margin-bottom: 10px;
+  color: #a8b6c4;
   font-family: var(--font-mono);
-  font-size: 0.7rem;
-  color: #BBB;
-  letter-spacing: 1px;
+  font-size: 0.68rem;
+  text-transform: uppercase;
 }
 
-.input-wrapper {
-  position: relative;
-  border: 1px solid #DDD;
-  background: #FAFAFA;
-}
-
-.code-input {
-  width: 100%;
-  border: none;
+.file-stack-header button {
+  border: 0;
+  color: var(--accent);
   background: transparent;
-  padding: 20px;
-  font-family: var(--font-mono);
-  font-size: 0.9rem;
-  line-height: 1.6;
-  resize: vertical;
-  outline: none;
-  min-height: 150px;
+  font-size: 0.72rem;
+  font-weight: 700;
+  cursor: pointer;
 }
 
-.model-badge {
-  position: absolute;
-  bottom: 10px;
-  right: 15px;
+.file-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 9px 0;
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.file-type {
+  width: 34px;
+  color: var(--accent);
+  font-family: var(--font-mono);
+  font-size: 0.62rem;
+  font-weight: 800;
+}
+
+.file-meta {
+  min-width: 0;
+  flex: 1;
+}
+
+.file-meta strong,
+.file-meta small {
+  display: block;
+}
+
+.file-meta strong {
+  overflow: hidden;
+  font-size: 0.78rem;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.file-meta small {
+  margin-top: 2px;
+  color: #8293a5;
+  font-size: 0.66rem;
+}
+
+.remove-file {
+  width: 30px;
+  height: 30px;
+  border: 0;
+  border-radius: 9px;
+  color: #b5c1cd;
+  background: rgba(255, 255, 255, 0.06);
+  cursor: pointer;
+}
+
+.prompt-field {
+  display: block;
+  margin-top: 18px;
+}
+
+.prompt-field > span {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 9px;
+}
+
+.prompt-field strong {
+  font-size: 0.84rem;
+}
+
+.prompt-field textarea {
+  width: 100%;
+  min-height: 132px;
+  padding: 14px;
+  resize: vertical;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 14px;
+  outline: none;
+  color: #f4f7fa;
+  background: rgba(255, 255, 255, 0.055);
+  font: 0.84rem/1.55 var(--font-sans);
+}
+
+.prompt-field textarea:focus {
+  border-color: var(--accent);
+  box-shadow: 0 0 0 3px rgba(73, 222, 177, 0.1);
+}
+
+.prompt-field textarea::placeholder {
+  color: #728396;
+}
+
+.form-error {
+  margin: 12px 0 0;
+  color: #ffb4ac;
+  font-size: 0.76rem;
+}
+
+.launch-button {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  margin-top: 16px;
+  padding: 16px;
+  border-radius: 14px;
+  color: #07131f;
+  background: var(--accent);
+  box-shadow: none;
+}
+
+.launch-button:disabled {
+  color: #718092;
+  background: #233243;
+  cursor: not-allowed;
+}
+
+.brief-note {
+  position: relative;
+  z-index: 1;
+  margin: 10px 0 0;
+  text-align: center;
+}
+
+.workflow-section,
+.history-wrap {
+  width: min(1320px, calc(100% - 48px));
+  margin: 0 auto;
+  padding: 110px 0;
+}
+
+.workflow-section {
+  border-top: 1px solid rgba(16, 27, 45, 0.1);
+}
+
+.section-heading {
+  align-items: flex-end;
+  margin-bottom: 44px;
+}
+
+.section-heading h2 {
+  max-width: 760px;
+  margin: 8px 0 0;
+  font-family: var(--font-display);
+  font-size: clamp(2.6rem, 5vw, 4.8rem);
+  letter-spacing: -0.06em;
+  line-height: 0.98;
+}
+
+.section-heading > p {
+  max-width: 390px;
+  margin: 0;
+  color: var(--ink-500);
+  line-height: 1.6;
+}
+
+.workflow-grid {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 10px;
+  padding: 0;
+  list-style: none;
+}
+
+.workflow-grid li {
+  position: relative;
+  min-height: 230px;
+  padding: 20px;
+  border: 1px solid rgba(16, 27, 45, 0.1);
+  border-radius: 18px;
+  background: rgba(255, 255, 255, 0.64);
+  transition: transform 0.2s, border-color 0.2s, box-shadow 0.2s;
+}
+
+.workflow-grid li:hover {
+  z-index: 2;
+  transform: translateY(-5px);
+  border-color: rgba(16, 27, 45, 0.2);
+  box-shadow: 0 18px 40px rgba(16, 27, 45, 0.09);
+}
+
+.workflow-number {
+  color: var(--accent-strong);
   font-family: var(--font-mono);
   font-size: 0.7rem;
-  color: #AAA;
+  font-weight: 800;
 }
 
-.start-engine-btn {
-  width: 100%;
-  background: var(--black);
-  color: var(--white);
-  border: none;
-  padding: 20px;
-  font-family: var(--font-mono);
-  font-weight: 700;
-  font-size: 1.1rem;
+.workflow-grid h3 {
+  margin: 70px 0 10px;
+  font-family: var(--font-display);
+  font-size: 1.25rem;
+  letter-spacing: -0.035em;
+}
+
+.workflow-grid p {
+  margin: 0;
+  color: var(--ink-500);
+  font-size: 0.78rem;
+  line-height: 1.55;
+}
+
+.workflow-arrow {
+  position: absolute;
+  top: 18px;
+  right: 18px;
+  color: var(--ink-300);
+}
+
+.history-wrap {
+  padding-top: 30px;
+}
+
+.section-heading.compact h2 {
+  font-size: clamp(2.4rem, 4vw, 3.8rem);
+}
+
+.site-footer {
   display: flex;
   justify-content: space-between;
-  align-items: center;
-  cursor: pointer;
-  transition: all 0.3s ease;
-  letter-spacing: 1px;
-  position: relative;
-  overflow: hidden;
+  gap: 20px;
+  width: min(1320px, calc(100% - 48px));
+  margin: 0 auto;
+  padding: 24px 0 40px;
+  border-top: 1px solid rgba(16, 27, 45, 0.1);
+  color: var(--ink-400);
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
 }
 
-/* 可点击状态（非禁用） */
-.start-engine-btn:not(:disabled) {
-  background: var(--black);
-  border: 1px solid var(--black);
-  animation: pulse-border 2s infinite;
+@media (max-width: 1100px) {
+  .hero-grid {
+    grid-template-columns: 1fr;
+    gap: 56px;
+    padding-top: 76px;
+  }
+
+  .hero-copy {
+    max-width: none;
+  }
+
+  .brief-card {
+    width: min(680px, 100%);
+  }
+
+  .workflow-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
 }
 
-.start-engine-btn:hover:not(:disabled) {
-  background: var(--orange);
-  border-color: var(--orange);
-  transform: translateY(-2px);
-}
+@media (max-width: 720px) {
+  .site-nav,
+  .hero-grid,
+  .workflow-section,
+  .history-wrap,
+  .site-footer {
+    width: min(100% - 28px, 1320px);
+  }
 
-.start-engine-btn:active:not(:disabled) {
-  transform: translateY(0);
-}
+  .site-nav {
+    padding: 13px 0;
+  }
 
-.start-engine-btn:disabled {
-  background: #E5E5E5;
-  color: #999;
-  cursor: not-allowed;
-  transform: none;
-  border: 1px solid #E5E5E5;
-}
+  .brand-lockup small,
+  .system-status {
+    display: none;
+  }
 
-/* 引导动画：微妙的边框脉冲 */
-@keyframes pulse-border {
-  0% { box-shadow: 0 0 0 0 rgba(0, 0, 0, 0.2); }
-  70% { box-shadow: 0 0 0 6px rgba(0, 0, 0, 0); }
-  100% { box-shadow: 0 0 0 0 rgba(0, 0, 0, 0); }
-}
+  .nav-actions {
+    gap: 12px;
+  }
 
-/* 响应式适配 */
-@media (max-width: 1024px) {
-  .dashboard-section {
+  .hero-grid {
+    min-height: auto;
+    padding: 58px 0 70px;
+  }
+
+  h1 {
+    font-size: clamp(3.5rem, 16vw, 5.3rem);
+  }
+
+  .hero-actions,
+  .section-heading,
+  .prompt-field > span,
+  .site-footer {
+    align-items: flex-start;
     flex-direction: column;
   }
-  
-  .hero-section {
-    flex-direction: column;
+
+  .proof-grid,
+  .workflow-grid {
+    grid-template-columns: 1fr;
   }
-  
-  .hero-left {
-    padding-right: 0;
-    margin-bottom: 40px;
+
+  .brief-card {
+    padding: 20px;
+    border-radius: 20px;
   }
-  
-  .hero-logo {
-    max-width: 200px;
-    margin-bottom: 20px;
+
+  .prompt-field small {
+    margin-top: 4px;
   }
-}
-</style>
 
-<style>
-/* English locale adjustments (unscoped to target html[lang]) */
-html[lang="en"] .main-title {
-  font-size: 3.5rem;
-  font-family: 'Space Grotesk', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-  letter-spacing: -1px;
-}
+  .workflow-section,
+  .history-wrap {
+    padding: 80px 0;
+  }
 
-html[lang="en"] .hero-desc {
-  text-align: left;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-  letter-spacing: 0;
-}
+  .workflow-grid li {
+    min-height: 180px;
+  }
 
-html[lang="en"] .slogan-text {
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-  letter-spacing: 0;
-}
-
-html[lang="en"] .tag-row {
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-}
-
-html[lang="en"] .navbar .nav-links {
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-}
-
-/* Left pane: system status + workflow */
-html[lang="en"] .status-section {
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-}
-
-html[lang="en"] .status-section .status-ready {
-  font-size: 1.6rem;
-}
-
-html[lang="en"] .status-section .metric-value {
-  font-family: 'Space Grotesk', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-  font-size: 1.4rem;
-}
-
-html[lang="en"] .workflow-list .step-title {
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-}
-
-html[lang="en"] .workflow-list .step-desc {
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif !important;
-  font-size: 0.72rem !important;
-  line-height: 1.4 !important;
-}
-
-html[lang="en"] .workflow-list {
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  .workflow-grid h3 {
+    margin-top: 45px;
+  }
 }
 </style>

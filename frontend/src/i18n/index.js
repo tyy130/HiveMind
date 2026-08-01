@@ -32,5 +32,4 @@ const i18n = createI18n({
   messages
 })
 
-export { availableLocales }
 export default i18n

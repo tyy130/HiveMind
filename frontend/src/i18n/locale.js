@@ -1,4 +1,4 @@
-export const DEFAULT_LOCALE = 'zh'
+export const DEFAULT_LOCALE = 'en'
 
 export function resolveLocale(candidate, availableLocales, fallback = DEFAULT_LOCALE) {
   const localeKeys = new Set(availableLocales)

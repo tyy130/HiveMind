@@ -1,9 +1,9 @@
 <template>
   <div class="simulation-panel">
-    <!-- Top Control Bar -->
+
     <div class="control-bar">
       <div class="status-group">
-        <!-- Twitter 平台进度 -->
+
         <div class="platform-status twitter" :class="{ active: runStatus.twitter_running, completed: runStatus.twitter_completed }">
           <div class="platform-header">
             <svg class="platform-icon" viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2">
@@ -30,7 +30,7 @@
               <span class="stat-value mono">{{ runStatus.twitter_actions_count || 0 }}</span>
             </span>
           </div>
-          <!-- 可用动作提示 -->
+
           <div class="actions-tooltip">
             <div class="tooltip-title">Available Actions</div>
             <div class="tooltip-actions">
@@ -43,8 +43,7 @@
             </div>
           </div>
         </div>
-        
-        <!-- Reddit 平台进度 -->
+
         <div class="platform-status reddit" :class="{ active: runStatus.reddit_running, completed: runStatus.reddit_completed }">
           <div class="platform-header">
             <svg class="platform-icon" viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2">
@@ -71,7 +70,7 @@
               <span class="stat-value mono">{{ runStatus.reddit_actions_count || 0 }}</span>
             </span>
           </div>
-          <!-- 可用动作提示 -->
+
           <div class="actions-tooltip">
             <div class="tooltip-title">Available Actions</div>
             <div class="tooltip-actions">
@@ -91,7 +90,7 @@
       </div>
 
       <div class="action-controls">
-        <button 
+        <button
           class="action-btn primary"
           :disabled="phase !== 2 || isGeneratingReport"
           @click="handleNextStep"
@@ -103,9 +102,8 @@
       </div>
     </div>
 
-    <!-- Main Content: Dual Timeline -->
     <div class="main-content-area" ref="scrollContainer">
-      <!-- Timeline Header -->
+
       <div class="timeline-header" v-if="allActions.length > 0">
         <div class="timeline-stats">
           <span class="total-count">TOTAL EVENTS: <span class="mono">{{ allActions.length }}</span></span>
@@ -122,29 +120,28 @@
           </span>
         </div>
       </div>
-      
-      <!-- Timeline Feed -->
+
       <div class="timeline-feed">
         <div class="timeline-axis"></div>
-        
+
         <TransitionGroup name="timeline-item">
-          <div 
-            v-for="action in chronologicalActions" 
-            :key="action._uniqueId || action.id || `${action.timestamp}-${action.agent_id}`" 
+          <div
+            v-for="action in chronologicalActions"
+            :key="action._uniqueId || action.id || `${action.timestamp}-${action.agent_id}`"
             class="timeline-item"
             :class="action.platform"
           >
             <div class="timeline-marker">
               <div class="marker-dot"></div>
             </div>
-            
+
             <div class="timeline-card">
               <div class="card-header">
                 <div class="agent-info">
                   <div class="avatar-placeholder">{{ (action.agent_name || 'A')[0] }}</div>
                   <span class="agent-name">{{ action.agent_name }}</span>
                 </div>
-                
+
                 <div class="header-meta">
                   <div class="platform-indicator">
                     <svg v-if="action.platform === 'twitter'" viewBox="0 0 24 24" width="12" height="12" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><line x1="2" y1="12" x2="22" y2="12"></line><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path></svg>
@@ -155,14 +152,13 @@
                   </div>
                 </div>
               </div>
-              
+
               <div class="card-body">
-                <!-- CREATE_POST: 发布帖子 -->
+
                 <div v-if="action.action_type === 'CREATE_POST' && action.action_args?.content" class="content-text main-text">
                   {{ action.action_args.content }}
                 </div>
 
-                <!-- QUOTE_POST: 引用帖子 -->
                 <template v-if="action.action_type === 'QUOTE_POST'">
                   <div v-if="action.action_args?.quote_content" class="content-text">
                     {{ action.action_args.quote_content }}
@@ -178,7 +174,6 @@
                   </div>
                 </template>
 
-                <!-- REPOST: 转发帖子 -->
                 <template v-if="action.action_type === 'REPOST'">
                   <div class="repost-info">
                     <svg class="icon-small" viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"><polyline points="17 1 21 5 17 9"></polyline><path d="M3 11V9a4 4 0 0 1 4-4h14"></path><polyline points="7 23 3 19 7 15"></polyline><path d="M21 13v2a4 4 0 0 1-4 4H3"></path></svg>
@@ -189,7 +184,6 @@
                   </div>
                 </template>
 
-                <!-- LIKE_POST: 点赞帖子 -->
                 <template v-if="action.action_type === 'LIKE_POST'">
                   <div class="like-info">
                     <svg class="icon-small filled" viewBox="0 0 24 24" width="14" height="14" fill="currentColor"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path></svg>
@@ -200,7 +194,6 @@
                   </div>
                 </template>
 
-                <!-- CREATE_COMMENT: 发表评论 -->
                 <template v-if="action.action_type === 'CREATE_COMMENT'">
                   <div v-if="action.action_args?.content" class="content-text">
                     {{ action.action_args.content }}
@@ -211,7 +204,6 @@
                   </div>
                 </template>
 
-                <!-- SEARCH_POSTS: 搜索帖子 -->
                 <template v-if="action.action_type === 'SEARCH_POSTS'">
                   <div class="search-info">
                     <svg class="icon-small" viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
@@ -220,7 +212,6 @@
                   </div>
                 </template>
 
-                <!-- FOLLOW: 关注用户 -->
                 <template v-if="action.action_type === 'FOLLOW'">
                   <div class="follow-info">
                     <svg class="icon-small" viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"><path d="M16 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="8.5" cy="7" r="4"></circle><line x1="20" y1="8" x2="20" y2="14"></line><line x1="23" y1="11" x2="17" y2="11"></line></svg>
@@ -228,7 +219,6 @@
                   </div>
                 </template>
 
-                <!-- UPVOTE / DOWNVOTE -->
                 <template v-if="action.action_type === 'UPVOTE_POST' || action.action_type === 'DOWNVOTE_POST'">
                   <div class="vote-info">
                     <svg v-if="action.action_type === 'UPVOTE_POST'" class="icon-small" viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"><polyline points="18 15 12 9 6 15"></polyline></svg>
@@ -240,7 +230,6 @@
                   </div>
                 </template>
 
-                <!-- DO_NOTHING: 无操作（静默） -->
                 <template v-if="action.action_type === 'DO_NOTHING'">
                   <div class="idle-info">
                     <svg class="icon-small" viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="8" x2="12" y2="12"></line><line x1="12" y1="16" x2="12.01" y2="16"></line></svg>
@@ -248,7 +237,6 @@
                   </div>
                 </template>
 
-                <!-- 通用回退：未知类型或有 content 但未被上述处理 -->
                 <div v-if="!['CREATE_POST', 'QUOTE_POST', 'REPOST', 'LIKE_POST', 'CREATE_COMMENT', 'SEARCH_POSTS', 'FOLLOW', 'UPVOTE_POST', 'DOWNVOTE_POST', 'DO_NOTHING'].includes(action.action_type) && action.action_args?.content" class="content-text">
                   {{ action.action_args.content }}
                 </div>
@@ -256,7 +244,7 @@
 
               <div class="card-footer">
                 <span class="time-tag">R{{ action.round_num }} • {{ formatActionTime(action.timestamp) }}</span>
-                <!-- Platform tag removed as it is in header now -->
+
               </div>
             </div>
           </div>
@@ -269,7 +257,6 @@
       </div>
     </div>
 
-    <!-- Bottom Info / Logs -->
     <div class="system-logs">
       <div class="log-header">
         <span class="log-title">SIMULATION MONITOR</span>
@@ -301,10 +288,10 @@ const { t } = useI18n()
 
 const props = defineProps({
   simulationId: String,
-  maxRounds: Number, // 从Step2传入的最大轮数
+  maxRounds: Number,
   minutesPerRound: {
     type: Number,
-    default: 30 // 默认每轮30分钟
+    default: 30
   },
   projectData: Object,
   graphData: Object,
@@ -314,25 +301,18 @@ const props = defineProps({
 const emit = defineEmits(['go-back', 'next-step', 'add-log', 'update-status'])
 
 const router = useRouter()
-
-// State
 const isGeneratingReport = ref(false)
-const phase = ref(0) // 0: 未开始, 1: 运行中, 2: 已完成
+const phase = ref(0)
 const isStarting = ref(false)
 const isStopping = ref(false)
 const startError = ref(null)
 const runStatus = ref({})
-const allActions = ref([]) // 所有动作（增量累积）
-const actionIds = ref(new Set()) // 用于去重的动作ID集合
+const allActions = ref([])
+const actionIds = ref(new Set())
 const scrollContainer = ref(null)
-
-// Computed
-// 按时间顺序显示动作（最新的在最后面，即底部）
 const chronologicalActions = computed(() => {
   return allActions.value
 })
-
-// 各平台动作计数
 const twitterActionsCount = computed(() => {
   return allActions.value.filter(a => a.platform === 'twitter').length
 })
@@ -340,8 +320,6 @@ const twitterActionsCount = computed(() => {
 const redditActionsCount = computed(() => {
   return allActions.value.filter(a => a.platform === 'reddit').length
 })
-
-// 格式化模拟流逝时间（根据轮次和每轮分钟数计算）
 const formatElapsedTime = (currentRound) => {
   if (!currentRound || currentRound <= 0) return '0h 0m'
   const totalMinutes = currentRound * props.minutesPerRound
@@ -349,23 +327,15 @@ const formatElapsedTime = (currentRound) => {
   const minutes = totalMinutes % 60
   return `${hours}h ${minutes}m`
 }
-
-// Twitter平台的模拟流逝时间
 const twitterElapsedTime = computed(() => {
   return formatElapsedTime(runStatus.value.twitter_current_round || 0)
 })
-
-// Reddit平台的模拟流逝时间
 const redditElapsedTime = computed(() => {
   return formatElapsedTime(runStatus.value.reddit_current_round || 0)
 })
-
-// Methods
 const addLog = (msg) => {
   emit('add-log', msg)
 }
-
-// 重置所有状态（用于重新启动模拟）
 const resetAllState = () => {
   phase.value = 0
   runStatus.value = {}
@@ -376,55 +346,51 @@ const resetAllState = () => {
   startError.value = null
   isStarting.value = false
   isStopping.value = false
-  stopPolling()  // 停止之前可能存在的轮询
+  stopPolling()
 }
-
-// 启动模拟
 const doStartSimulation = async () => {
   if (!props.simulationId) {
     addLog(t('log.errorMissingSimId'))
     return
   }
-
-  // 先重置所有状态，确保不会受到上一次模拟的影响
   resetAllState()
-  
+
   isStarting.value = true
   startError.value = null
   addLog(t('log.startingDualSim'))
   emit('update-status', 'processing')
-  
+
   try {
     const params = {
       simulation_id: props.simulationId,
       platform: 'parallel',
-      force: true,  // 强制重新开始
-      enable_graph_memory_update: true  // 开启动态图谱更新
+      force: true,
+      enable_graph_memory_update: true
     }
-    
+
     if (props.maxRounds) {
       params.max_rounds = props.maxRounds
       addLog(t('log.setMaxRounds', { rounds: props.maxRounds }))
     }
-    
+
     addLog(t('log.graphMemoryUpdateEnabled'))
-    
+
     const res = await startSimulation(params)
-    
+
     if (res.success && res.data) {
       if (res.data.force_restarted) {
         addLog(t('log.oldSimCleared'))
       }
       addLog(t('log.engineStarted'))
       addLog(`  ├─ PID: ${res.data.process_pid || '-'}`)
-      
+
       phase.value = 1
       runStatus.value = res.data
-      
+
       startStatusPolling()
       startDetailPolling()
     } else {
-      startError.value = res.error || '启动失败'
+      startError.value = res.error || 'Failed to start simulation'
       addLog(t('log.startFailed', { error: res.error || t('common.unknownError') }))
       emit('update-status', 'error')
     }
@@ -436,17 +402,15 @@ const doStartSimulation = async () => {
     isStarting.value = false
   }
 }
-
-// 停止模拟
 const handleStopSimulation = async () => {
   if (!props.simulationId) return
-  
+
   isStopping.value = true
   addLog(t('log.stoppingSim'))
-  
+
   try {
     const res = await stopSimulation({ simulation_id: props.simulationId })
-    
+
     if (res.success) {
       addLog(t('log.simStoppedSuccess'))
       phase.value = 2
@@ -461,8 +425,6 @@ const handleStopSimulation = async () => {
     isStopping.value = false
   }
 }
-
-// 轮询状态
 let statusTimer = null
 let detailTimer = null
 
@@ -484,39 +446,30 @@ const stopPolling = () => {
     detailTimer = null
   }
 }
-
-// 追踪各平台的上一次轮次，用于检测变化并输出日志
 const prevTwitterRound = ref(0)
 const prevRedditRound = ref(0)
 
 const fetchRunStatus = async () => {
   if (!props.simulationId) return
-  
+
   try {
     const res = await getRunStatus(props.simulationId)
-    
+
     if (res.success && res.data) {
       const data = res.data
-      
+
       runStatus.value = data
-      
-      // 分别检测各平台的轮次变化并输出日志
       if (data.twitter_current_round > prevTwitterRound.value) {
         addLog(`[Plaza] R${data.twitter_current_round}/${data.total_rounds} | T:${data.twitter_simulated_hours || 0}h | A:${data.twitter_actions_count}`)
         prevTwitterRound.value = data.twitter_current_round
       }
-      
+
       if (data.reddit_current_round > prevRedditRound.value) {
         addLog(`[Community] R${data.reddit_current_round}/${data.total_rounds} | T:${data.reddit_simulated_hours || 0}h | A:${data.reddit_actions_count}`)
         prevRedditRound.value = data.reddit_current_round
       }
-      
-      // 检测模拟是否已完成（通过 runner_status 或平台完成状态判断）
       const isCompleted = data.runner_status === 'completed' || data.runner_status === 'stopped'
       const isFailed = data.runner_status === 'failed'
-      
-      // runner_status is authoritative because the backend only publishes a
-      // terminal state after the Zep ingestion barrier has completed.
       if (isFailed) {
         addLog(t('log.simFailed') + (data.error ? `: ${data.error}` : ''))
         phase.value = 2
@@ -530,50 +483,34 @@ const fetchRunStatus = async () => {
       }
     }
   } catch (err) {
-    console.warn('获取运行状态失败:', err)
+    console.warn('Failed to fetch run status:', err)
   }
 }
-
-// 检查所有启用的平台是否已完成
 const checkPlatformsCompleted = (data) => {
-  // 如果没有任何平台数据，返回 false
   if (!data) return false
-  
-  // 检查各平台的完成状态
   const twitterCompleted = data.twitter_completed === true
   const redditCompleted = data.reddit_completed === true
-  
-  // 如果至少有一个平台完成了，检查是否所有启用的平台都完成了
-  // 通过 actions_count 判断平台是否被启用（如果 count > 0 或 running 曾为 true）
   const twitterEnabled = (data.twitter_actions_count > 0) || data.twitter_running || twitterCompleted
   const redditEnabled = (data.reddit_actions_count > 0) || data.reddit_running || redditCompleted
-  
-  // 如果没有任何平台被启用，返回 false
   if (!twitterEnabled && !redditEnabled) return false
-  
-  // 检查所有启用的平台是否都已完成
   if (twitterEnabled && !twitterCompleted) return false
   if (redditEnabled && !redditCompleted) return false
-  
+
   return true
 }
 
 const fetchRunStatusDetail = async () => {
   if (!props.simulationId) return
-  
+
   try {
     const res = await getRunStatusDetail(props.simulationId)
-    
+
     if (res.success && res.data) {
-      // 使用 all_actions 获取完整的动作列表
       const serverActions = res.data.all_actions || []
-      
-      // 增量添加新动作（去重）
       let newActionsAdded = 0
       serverActions.forEach(action => {
-        // 生成唯一ID
         const actionId = action.id || `${action.timestamp}-${action.platform}-${action.agent_id}-${action.action_type}`
-        
+
         if (!actionIds.value.has(actionId)) {
           actionIds.value.add(actionId)
           allActions.value.push({
@@ -583,16 +520,11 @@ const fetchRunStatusDetail = async () => {
           newActionsAdded++
         }
       })
-      
-      // 不自动滚动，让用户自由查看时间轴
-      // 新动作会在底部追加
     }
   } catch (err) {
-    console.warn('获取详细状态失败:', err)
+    console.warn('Failed to fetch detailed run status:', err)
   }
 }
-
-// Helpers
 const getActionTypeLabel = (type) => {
   const labels = {
     'CREATE_POST': 'POST',
@@ -652,21 +584,19 @@ const handleNextStep = async () => {
     addLog(t('log.reportRequestSent'))
     return
   }
-  
+
   isGeneratingReport.value = true
   addLog(t('log.startingReportGen'))
-  
+
   try {
     const res = await generateReport({
       simulation_id: props.simulationId,
       force_regenerate: true
     })
-    
+
     if (res.success && res.data) {
       const reportId = res.data.report_id
       addLog(t('log.reportGenTaskStarted', { reportId }))
-      
-      // 跳转到报告页面
       router.push({ name: 'Report', params: { reportId } })
     } else {
       addLog(t('log.reportGenFailed', { error: res.error || t('common.unknownError') }))
@@ -677,8 +607,6 @@ const handleNextStep = async () => {
     isGeneratingReport.value = false
   }
 }
-
-// Scroll log to bottom
 const logContent = ref(null)
 watch(() => props.systemLogs?.length, () => {
   nextTick(() => {
@@ -706,11 +634,10 @@ onUnmounted(() => {
   display: flex;
   flex-direction: column;
   background: #FFFFFF;
-  font-family: 'Space Grotesk', 'Noto Sans SC', system-ui, sans-serif;
+  font-family: var(--font-sans);
   overflow: hidden;
 }
 
-/* --- Control Bar --- */
 .control-bar {
   background: #FFF;
   padding: 12px 24px;
@@ -727,7 +654,6 @@ onUnmounted(() => {
   gap: 12px;
 }
 
-/* Platform Status Cards */
 .platform-status {
   display: flex;
   flex-direction: column;
@@ -755,7 +681,6 @@ onUnmounted(() => {
   background: #F2FAF6;
 }
 
-/* Actions Tooltip */
 .actions-tooltip {
   position: absolute;
   top: 100%;
@@ -872,7 +797,6 @@ onUnmounted(() => {
   align-items: center;
 }
 
-/* Action Button */
 .action-btn {
   display: inline-flex;
   align-items: center;
@@ -902,7 +826,6 @@ onUnmounted(() => {
   cursor: not-allowed;
 }
 
-/* --- Main Content Area --- */
 .main-content-area {
   flex: 1;
   overflow-y: auto;
@@ -910,7 +833,6 @@ onUnmounted(() => {
   background: #FFF;
 }
 
-/* Timeline Header */
 .timeline-header {
   position: sticky;
   top: 0;
@@ -955,7 +877,6 @@ onUnmounted(() => {
 .breakdown-item.twitter { color: #000; }
 .breakdown-item.reddit { color: #000; }
 
-/* --- Timeline Feed --- */
 .timeline-feed {
   padding: 24px 0;
   position: relative;
@@ -970,7 +891,7 @@ onUnmounted(() => {
   top: 0;
   bottom: 0;
   width: 1px;
-  background: #EAEAEA; /* Cleaner line */
+  background: #EAEAEA;
   transform: translateX(-50%);
 }
 
@@ -1010,7 +931,6 @@ onUnmounted(() => {
 .timeline-item.twitter .timeline-marker { border-color: #000; }
 .timeline-item.reddit .timeline-marker { border-color: #000; }
 
-/* Card Layout */
 .timeline-card {
   width: calc(100% - 48px);
   background: #FFF;
@@ -1027,27 +947,24 @@ onUnmounted(() => {
   border-color: #DDD;
 }
 
-/* Left side (Twitter) */
 .timeline-item.twitter {
   justify-content: flex-start;
   padding-right: 50%;
 }
 .timeline-item.twitter .timeline-card {
   margin-left: auto;
-  margin-right: 32px; /* Gap from axis */
+  margin-right: 32px;
 }
 
-/* Right side (Reddit) */
 .timeline-item.reddit {
   justify-content: flex-end;
   padding-left: 50%;
 }
 .timeline-item.reddit .timeline-card {
   margin-right: auto;
-  margin-left: 32px; /* Gap from axis */
+  margin-left: 32px;
 }
 
-/* Card Content Styles */
 .card-header {
   display: flex;
   justify-content: space-between;
@@ -1105,7 +1022,6 @@ onUnmounted(() => {
   border: 1px solid transparent;
 }
 
-/* Monochromatic Badges */
 .badge-post { background: #F0F0F0; color: #333; border-color: #E0E0E0; }
 .badge-comment { background: #F0F0F0; color: #666; border-color: #E0E0E0; }
 .badge-action { background: #FFF; color: #666; border: 1px solid #E0E0E0; }
@@ -1124,7 +1040,6 @@ onUnmounted(() => {
   color: #000;
 }
 
-/* Info Blocks (Quote, Repost, etc) */
 .quoted-block, .repost-content {
   background: #F9F9F9;
   border: 1px solid #EEE;
@@ -1148,7 +1063,7 @@ onUnmounted(() => {
   color: #999;
 }
 .icon-small.filled {
-  color: #999; /* Keep icons neutral unless highlighted */
+  color: #999;
 }
 
 .search-query {
@@ -1167,7 +1082,6 @@ onUnmounted(() => {
   font-family: 'JetBrains Mono', monospace;
 }
 
-/* Waiting State */
 .waiting-state {
   position: absolute;
   top: 50%;
@@ -1196,7 +1110,6 @@ onUnmounted(() => {
   100% { transform: scale(2.5); opacity: 0; border-color: #EAEAEA; }
 }
 
-/* Animation */
 .timeline-item-enter-active,
 .timeline-item-leave-active {
   transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
@@ -1211,7 +1124,6 @@ onUnmounted(() => {
   opacity: 0;
 }
 
-/* Logs */
 .system-logs {
   background: #000;
   color: #DDD;
@@ -1254,7 +1166,6 @@ onUnmounted(() => {
 .log-msg { color: #BBB; word-break: break-all; }
 .mono { font-family: 'JetBrains Mono', monospace; }
 
-/* Loading spinner for button */
 .loading-spinner-small {
   display: inline-block;
   width: 14px;

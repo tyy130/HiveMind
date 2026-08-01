@@ -23,12 +23,11 @@
     "minutes": "minutes",
     "rounds": "rounds",
     "items": "items",
-    "files": "files",
-    "selectLanguage": "Select language"
+    "files": "files"
   },
   "meta": {
-    "title": "MiroFish - Predict Everything",
-    "description": "MiroFish - Social Media Opinion Simulation System"
+    "title": "MiroFish - Run the world before it happens",
+    "description": "MiroFish - collective intelligence and agent-based forecasting"
   },
   "nav": {
     "visitGithub": "Visit our Github page"
@@ -70,11 +69,7 @@
     "promptPlaceholder": "// Describe your simulation or prediction requirement in natural language",
     "engineBadge": "Engine: MiroFish-V1.0",
     "startEngine": "Start Engine",
-    "initializing": "Initializing...",
-    "logoAlt": "MiroFish logo",
-    "scrollToInput": "Go to simulation input",
-    "uploadFiles": "Upload PDF, Markdown, or text files",
-    "removeFile": "Remove {name}"
+    "initializing": "Initializing..."
   },
   "main": {
     "layoutGraph": "Graph",
