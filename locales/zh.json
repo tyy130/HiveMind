@@ -23,7 +23,8 @@
     "minutes": "分钟",
     "rounds": "轮",
     "items": "个",
-    "files": "个文件"
+    "files": "个文件",
+    "selectLanguage": "选择语言"
   },
   "meta": {
     "title": "MiroFish - 预测万物",
@@ -69,7 +70,11 @@
     "promptPlaceholder": "// 用自然语言输入模拟或预测需求（例.武大若发布撤销肖某处分的公告，会引发什么舆情走向）",
     "engineBadge": "引擎: MiroFish-V1.0",
     "startEngine": "启动引擎",
-    "initializing": "初始化中..."
+    "initializing": "初始化中...",
+    "logoAlt": "MiroFish 标志",
+    "scrollToInput": "前往模拟输入区",
+    "uploadFiles": "上传 PDF、Markdown 或文本文件",
+    "removeFile": "移除 {name}"
   },
   "main": {
     "layoutGraph": "图谱",
@@ -319,6 +324,10 @@
     "unknownFile": "未知文件"
   },
   "api": {
+    "requestTimeout": "请求超时，请重试。",
+    "networkError": "无法连接服务器，请检查网络后重试。",
+    "requestFailed": "请求失败，请重试。",
+    "requestFailedStatus": "请求失败（HTTP {status}），请重试。",
     "projectNotFound": "项目不存在: {id}",
     "projectDeleteFailed": "项目不存在或删除失败: {id}",
     "projectDeleted": "项目已删除: {id}",

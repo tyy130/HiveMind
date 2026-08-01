@@ -5,7 +5,7 @@
       <div class="nav-brand">MIROFISH</div>
       <div class="nav-links">
         <LanguageSwitcher />
-        <a href="https://github.com/666ghj/MiroFish" target="_blank" class="github-link">
+        <a href="https://github.com/666ghj/MiroFish" target="_blank" rel="noopener noreferrer" class="github-link">
           {{ $t('nav.visitGithub') }} <span class="arrow">↗</span>
         </a>
       </div>
@@ -44,10 +44,10 @@
         <div class="hero-right">
           <!-- Logo 区域 -->
           <div class="logo-container">
-            <img src="../assets/logo/MiroFish_logo_left.jpeg" alt="MiroFish Logo" class="hero-logo" />
+            <img src="../assets/logo/MiroFish_logo_left.jpeg" :alt="$t('home.logoAlt')" class="hero-logo" />
           </div>
           
-          <button class="scroll-down-btn" @click="scrollToBottom">
+          <button class="scroll-down-btn" :aria-label="$t('home.scrollToInput')" @click="scrollToBottom">
             ↓
           </button>
         </div>
@@ -143,12 +143,14 @@
               >
                 <input
                   ref="fileInput"
+                  class="file-input"
                   type="file"
                   multiple
                   accept=".pdf,.md,.txt"
                   @change="handleFileSelect"
-                  style="display: none"
+                  @click.stop
                   :disabled="loading"
+                  :aria-label="$t('home.uploadFiles')"
                 />
                 
                 <div v-if="files.length === 0" class="upload-placeholder">
@@ -161,7 +163,12 @@
                   <div v-for="(file, index) in files" :key="index" class="file-item">
                     <span class="file-icon">📄</span>
                     <span class="file-name">{{ file.name }}</span>
-                    <button @click.stop="removeFile(index)" class="remove-btn">×</button>
+                    <button
+                      type="button"
+                      class="remove-btn"
+                      :aria-label="$t('home.removeFile', { name: file.name })"
+                      @click.stop="removeFile(index)"
+                    >×</button>
                   </div>
                 </div>
               </div>
@@ -763,6 +770,23 @@ const startSimulation = () => {
 .file-name {
   flex: 1;
   margin: 0 10px;
+}
+
+.file-input {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+.upload-zone:focus-within {
+  outline: 2px solid var(--orange);
+  outline-offset: 2px;
 }
 
 .remove-btn {

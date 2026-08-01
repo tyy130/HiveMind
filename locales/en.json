@@ -23,7 +23,8 @@
     "minutes": "minutes",
     "rounds": "rounds",
     "items": "items",
-    "files": "files"
+    "files": "files",
+    "selectLanguage": "Select language"
   },
   "meta": {
     "title": "MiroFish - Predict Everything",
@@ -69,7 +70,11 @@
     "promptPlaceholder": "// Describe your simulation or prediction requirement in natural language",
     "engineBadge": "Engine: MiroFish-V1.0",
     "startEngine": "Start Engine",
-    "initializing": "Initializing..."
+    "initializing": "Initializing...",
+    "logoAlt": "MiroFish logo",
+    "scrollToInput": "Go to simulation input",
+    "uploadFiles": "Upload PDF, Markdown, or text files",
+    "removeFile": "Remove {name}"
   },
   "main": {
     "layoutGraph": "Graph",
@@ -319,6 +324,10 @@
     "unknownFile": "Unknown file"
   },
   "api": {
+    "requestTimeout": "The request timed out. Please try again.",
+    "networkError": "Cannot reach the server. Check your connection and try again.",
+    "requestFailed": "The request failed. Please try again.",
+    "requestFailedStatus": "The request failed (HTTP {status}). Please try again.",
     "projectNotFound": "Project not found: {id}",
     "projectDeleteFailed": "Project not found or deletion failed: {id}",
     "projectDeleted": "Project deleted: {id}",
