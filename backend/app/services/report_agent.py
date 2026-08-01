@@ -31,6 +31,7 @@ from .zep_tools import (
 )
 
 logger = get_logger('mirofish.report_agent')
+internal_logger = get_logger('mirofish.internal.report_agent')
 
 
 class ReportLogger:
@@ -1063,9 +1064,17 @@ class ReportAgent:
             else:
                 return f"未知工具: {tool_name}。请使用以下工具之一: insight_forge, panorama_search, quick_search"
                 
-        except Exception as e:
-            logger.error(t('report.toolExecFailed', toolName=tool_name, error=str(e)))
-            return f"工具执行失败: {str(e)}"
+        except Exception:
+            internal_logger.exception("Report tool %s failed", tool_name)
+            public_error = t('common.unknownError')
+            logger.error(
+                t(
+                    'report.toolExecFailed',
+                    toolName=tool_name,
+                    error=public_error,
+                )
+            )
+            return f"工具执行失败: {public_error}"
     
     # 合法的工具名称集合，用于裸 JSON 兜底解析时校验
     VALID_TOOL_NAMES = {"insight_forge", "panorama_search", "quick_search", "interview_agents"}
@@ -1244,8 +1253,14 @@ class ReportAgent:
             logger.info(t('report.outlinePlanDone', count=len(sections)))
             return outline
             
-        except Exception as e:
-            logger.error(t('report.outlinePlanFailed', error=str(e)))
+        except Exception:
+            internal_logger.exception("Report outline planning failed")
+            logger.error(
+                t(
+                    'report.outlinePlanFailed',
+                    error=t('common.unknownError'),
+                )
+            )
             # 返回默认大纲（3个章节，作为fallback）
             return ReportOutline(
                 title="未来预测报告",
@@ -1781,20 +1796,24 @@ class ReportAgent:
             
             return report
             
-        except Exception as e:
-            logger.error(t('report.reportGenFailed', error=str(e)))
+        except Exception:
+            # ReportConsoleLogger exposes ``logger`` output through an API.
+            # Keep raw provider exceptions on a separate server-only logger.
+            internal_logger.exception("Report generation failed")
+            public_error = t('common.unknownError')
             report.status = ReportStatus.FAILED
-            report.error = str(e)
+            report.error = public_error
             
             # 记录错误日志
             if self.report_logger:
-                self.report_logger.log_error(str(e), "failed")
+                self.report_logger.log_error(public_error, "failed")
             
             # 保存失败状态
             try:
                 ReportManager.save_report(report)
                 ReportManager.update_progress(
-                    report_id, "failed", -1, t('progress.reportFailed', error=str(e)),
+                    report_id, "failed", -1,
+                    t('progress.reportFailed', error=public_error),
                     completed_sections=completed_section_titles
                 )
             except Exception:
@@ -1841,8 +1860,14 @@ class ReportAgent:
                 report_content = report.markdown_content[:15000]
                 if len(report.markdown_content) > 15000:
                     report_content += "\n\n... [报告内容已截断] ..."
-        except Exception as e:
-            logger.warning(t('report.fetchReportFailed', error=e))
+        except Exception:
+            internal_logger.exception("Fetching the existing report failed")
+            logger.warning(
+                t(
+                    'report.fetchReportFailed',
+                    error=t('common.unknownError'),
+                )
+            )
         
         system_prompt = CHAT_SYSTEM_PROMPT_TEMPLATE.format(
             simulation_requirement=self.simulation_requirement,
