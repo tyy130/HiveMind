@@ -41,26 +41,11 @@ test('English is the only advertised locale', () => {
   assert.deepEqual(Object.keys(languages), ['en'])
 })
 
-test('report parsing follows the English backend heading contract', () => {
+test('Step 4 uses the tested report parser module', () => {
   const reportSource = readFileSync(join(frontendRoot, 'src/components/Step4Report.vue'), 'utf8')
-  const requiredHeadings = [
-    'Analysis Question',
-    'Prediction Scenario',
-    'Key Facts',
-    'Core Entities',
-    'Relationship Chains',
-    'Currently Valid Facts',
-    'Interview Topic',
-    'Selection Rationale',
-    'Interview Transcript',
-    'Key Quotes',
-    'Search Query',
-    'Related Facts',
-    'Related Edges',
-    'Related Nodes'
-  ]
-
-  for (const heading of requiredHeadings) {
-    assert.ok(reportSource.includes(heading), `Missing English report heading: ${heading}`)
-  }
+  assert.match(reportSource, /from '\.\.\/utils\/reportParsers\.js'/)
+  assert.match(reportSource, /parseInsightForgeContract\(log\.details\.result\)/)
+  assert.match(reportSource, /parsePanoramaContract\(log\.details\.result\)/)
+  assert.match(reportSource, /parseInterviewContract\(log\.details\.result\)/)
+  assert.match(reportSource, /parseQuickSearchContract\(log\.details\.result\)/)
 })
