@@ -1,0 +1,15 @@
+FROM python:3.11-slim
+
+COPY --from=ghcr.io/astral-sh/uv:0.9.26 /uv /uvx /bin/
+
+WORKDIR /app
+
+COPY backend/pyproject.toml backend/uv.lock ./backend/
+RUN cd backend && uv sync --frozen
+
+COPY backend ./backend
+COPY locales ./locales
+
+WORKDIR /app/backend
+ENV PYTHONUNBUFFERED=1
+CMD ["sh", "-c", "FLASK_HOST=0.0.0.0 FLASK_PORT=${PORT:-5001} uv run python run.py"]
